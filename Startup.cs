@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CIS_560_Final_Project.Models;
 
 namespace CIS_560_Final_Project
 {
@@ -22,6 +24,12 @@ namespace CIS_560_Final_Project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+             // Add framework services.
+            services.AddDbContext<SiteContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,4 +54,5 @@ namespace CIS_560_Final_Project
             });
         }
     }
+
 }
