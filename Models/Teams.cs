@@ -28,5 +28,6 @@ namespace CIS_560_Final_Project.Models
         [StringLength(10)]
         public string Division { get; set; }
 
+
     }
 }

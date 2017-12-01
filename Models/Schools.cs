@@ -30,7 +30,7 @@ namespace CIS_560_Final_Project.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        public int Population { get; set; }
+        public int? Population { get; set; }
 
     }
 

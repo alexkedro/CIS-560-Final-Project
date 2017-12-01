@@ -15,6 +15,7 @@ namespace CIS_560_Final_Project.Models
         public int MembersID { get; set; }
         public Members Member { get; set; } 
 
+        [Required]
         [StringLength(40)]
         public string IGN { get; set; }
 

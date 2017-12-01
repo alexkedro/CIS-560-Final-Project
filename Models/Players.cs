@@ -16,6 +16,9 @@ namespace CIS_560_Final_Project.Models
         //refrences TeamsPlaying
         public ICollection<TeamsMembers> TeamsMembers { set; get; }
 
+        [Required]
+        [ForeignKey("Aliases")]
+        public int AliasID { set; get; }
         public Aliases Alias { set; get; }
 
     }
