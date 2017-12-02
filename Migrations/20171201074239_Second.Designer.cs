@@ -13,9 +13,10 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    partial class SiteContextModelSnapshot : ModelSnapshot
+    [Migration("20171201074239_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,32 +152,6 @@ namespace CIS560FinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Schools");
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.Scrims", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Datetime");
-
-                    b.Property<int?>("Score1");
-
-                    b.Property<int?>("Score2");
-
-                    b.Property<int>("Team1ID");
-
-                    b.Property<int>("Team2ID");
-
-                    b.Property<int?>("Winner");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Team1ID");
-
-                    b.HasIndex("Team2ID");
-
-                    b.ToTable("Scrims");
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Teams", b =>
@@ -362,22 +337,6 @@ namespace CIS560FinalProject.Migrations
                         .WithMany()
                         .HasForeignKey("TournamentID")
                         .OnDelete(DeleteBehavior.Cascade);
-<<<<<<< HEAD
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.Scrims", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Team1")
-                        .WithMany()
-                        .HasForeignKey("Team1ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Team2")
-                        .WithMany()
-                        .HasForeignKey("Team2ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-=======
->>>>>>> dcb8df1829d589238ad801d5fe9a45c0a5a5e068
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Teams", b =>

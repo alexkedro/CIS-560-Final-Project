@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using CIS_560_Final_Project.Models;
 
 namespace CIS_560_Final_Project.Models
 {
@@ -37,6 +38,8 @@ namespace CIS_560_Final_Project.Models
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<CIS_560_Final_Project.Models.Scrims> Scrims { get; set; }
 
         
     }
