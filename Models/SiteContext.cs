@@ -38,9 +38,6 @@ namespace CIS_560_Final_Project.Models
         {
             base.OnModelCreating(modelBuilder);
         }
-
-        public DbSet<CIS_560_Final_Project.Models.Scrims> Scrims { get; set; }
-
         
     }
 }

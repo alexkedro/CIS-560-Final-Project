@@ -362,7 +362,6 @@ namespace CIS560FinalProject.Migrations
                         .WithMany()
                         .HasForeignKey("TournamentID")
                         .OnDelete(DeleteBehavior.Cascade);
-<<<<<<< HEAD
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Scrims", b =>
@@ -376,8 +375,6 @@ namespace CIS560FinalProject.Migrations
                         .WithMany()
                         .HasForeignKey("Team2ID")
                         .OnDelete(DeleteBehavior.Cascade);
-=======
->>>>>>> dcb8df1829d589238ad801d5fe9a45c0a5a5e068
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Teams", b =>

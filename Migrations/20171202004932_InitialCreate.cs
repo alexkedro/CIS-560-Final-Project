@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIS560FinalProject.Migrations
 {
-    public partial class IntialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,7 @@ namespace CIS560FinalProject.Migrations
                     Address2 = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     City = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Population = table.Column<int>(type: "int", nullable: false),
+                    Population = table.Column<int>(type: "int", nullable: true),
                     State = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -102,7 +102,8 @@ namespace CIS560FinalProject.Migrations
                     MatchNumber = table.Column<int>(type: "int", nullable: false),
                     Team1ID = table.Column<int>(type: "int", nullable: false),
                     Team2ID = table.Column<int>(type: "int", nullable: false),
-                    Winner = table.Column<int>(type: "int", nullable: false)
+                    TournamentID = table.Column<int>(type: "int", nullable: false),
+                    Winner = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,6 +116,42 @@ namespace CIS560FinalProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Matches_Teams_Team2ID",
+                        column: x => x.Team2ID,
+                        principalTable: "Teams",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Matches_Tournaments_TournamentID",
+                        column: x => x.TournamentID,
+                        principalTable: "Tournaments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Scrims",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Datetime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Score1 = table.Column<int>(type: "int", nullable: true),
+                    Score2 = table.Column<int>(type: "int", nullable: true),
+                    Team1ID = table.Column<int>(type: "int", nullable: false),
+                    Team2ID = table.Column<int>(type: "int", nullable: false),
+                    Winner = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scrims", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Scrims_Teams_Team1ID",
+                        column: x => x.Team1ID,
+                        principalTable: "Teams",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Scrims_Teams_Team2ID",
                         column: x => x.Team2ID,
                         principalTable: "Teams",
                         principalColumn: "ID",
@@ -210,7 +247,7 @@ namespace CIS560FinalProject.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IGN = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: true),
+                    IGN = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
                     MembersID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -266,6 +303,11 @@ namespace CIS560FinalProject.Migrations
                 column: "Team2ID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Matches_TournamentID",
+                table: "Matches",
+                column: "TournamentID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Members_AliasID",
                 table: "Members",
                 column: "AliasID");
@@ -289,6 +331,16 @@ namespace CIS560FinalProject.Migrations
                 name: "IX_Members_TeamsPlayed_TeamID",
                 table: "Members",
                 column: "TeamsPlayed_TeamID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scrims_Team1ID",
+                table: "Scrims",
+                column: "Team1ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scrims_Team2ID",
+                table: "Scrims",
+                column: "Team2ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_GameID",
@@ -331,7 +383,7 @@ namespace CIS560FinalProject.Migrations
                 column: "AliasID",
                 principalTable: "Aliases",
                 principalColumn: "ID",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -342,6 +394,9 @@ namespace CIS560FinalProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Matches");
+
+            migrationBuilder.DropTable(
+                name: "Scrims");
 
             migrationBuilder.DropTable(
                 name: "TeamsMembers");

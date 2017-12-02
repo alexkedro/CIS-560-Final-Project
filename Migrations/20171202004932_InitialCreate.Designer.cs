@@ -13,8 +13,8 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20171122204424_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20171202004932_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,7 @@ namespace CIS560FinalProject.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("IGN")
+                        .IsRequired()
                         .HasMaxLength(40);
 
                     b.Property<int>("MembersID");
@@ -72,13 +73,17 @@ namespace CIS560FinalProject.Migrations
 
                     b.Property<int>("Team2ID");
 
-                    b.Property<int>("Winner");
+                    b.Property<int>("TournamentID");
+
+                    b.Property<int?>("Winner");
 
                     b.HasKey("ID");
 
                     b.HasIndex("Team1ID");
 
                     b.HasIndex("Team2ID");
+
+                    b.HasIndex("TournamentID");
 
                     b.ToTable("Matches");
                 });
@@ -140,13 +145,39 @@ namespace CIS560FinalProject.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int>("Population");
+                    b.Property<int?>("Population");
 
                     b.Property<int>("State");
 
                     b.HasKey("ID");
 
                     b.ToTable("Schools");
+                });
+
+            modelBuilder.Entity("CIS_560_Final_Project.Models.Scrims", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Datetime");
+
+                    b.Property<int?>("Score1");
+
+                    b.Property<int?>("Score2");
+
+                    b.Property<int>("Team1ID");
+
+                    b.Property<int>("Team2ID");
+
+                    b.Property<int?>("Winner");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Team1ID");
+
+                    b.HasIndex("Team2ID");
+
+                    b.ToTable("Scrims");
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Teams", b =>
@@ -250,7 +281,7 @@ namespace CIS560FinalProject.Migrations
                 {
                     b.HasBaseType("CIS_560_Final_Project.Models.Members");
 
-                    b.Property<int?>("AliasID");
+                    b.Property<int>("AliasID");
 
                     b.Property<int>("Year");
 
@@ -327,6 +358,24 @@ namespace CIS560FinalProject.Migrations
                         .WithMany()
                         .HasForeignKey("Team2ID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CIS_560_Final_Project.Models.Tournaments", "Tournament")
+                        .WithMany()
+                        .HasForeignKey("TournamentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CIS_560_Final_Project.Models.Scrims", b =>
+                {
+                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Team1")
+                        .WithMany()
+                        .HasForeignKey("Team1ID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Team2")
+                        .WithMany()
+                        .HasForeignKey("Team2ID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Teams", b =>
@@ -380,7 +429,8 @@ namespace CIS560FinalProject.Migrations
                 {
                     b.HasOne("CIS_560_Final_Project.Models.Aliases", "Alias")
                         .WithMany()
-                        .HasForeignKey("AliasID");
+                        .HasForeignKey("AliasID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsCoached", b =>
