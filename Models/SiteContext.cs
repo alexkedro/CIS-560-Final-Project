@@ -25,6 +25,7 @@ namespace CIS_560_Final_Project.Models
 
         public DbSet<TeamsTournaments> TeamsTournaments { get; set; }
         public DbSet<Matches> Matches { get; set; }
+        public DbSet<Scrims> Scrims { get; set; }
         
         public SiteContext (DbContextOptions<SiteContext> options)
             : base(options)
