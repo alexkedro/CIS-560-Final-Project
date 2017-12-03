@@ -19,16 +19,19 @@ namespace CIS_560_Final_Project.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { set; get; }
 
         [Required]
         [DataType(DataType.Date)]
+        [Display(Name="End Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { set; get; }
 
         [Required]
         [ForeignKey("Games")]
+        [Display(Name = "Game ID")]
         public int GamesID { get; set; }
         public Games Game { get; set; }
 
