@@ -9,6 +9,7 @@ namespace CIS_560_Final_Project.Models
 {
     public class Coaches: Members
     {
+
         [Required]
         public bool IsManager { set; get; }
         [Required]

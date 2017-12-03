@@ -1,10 +1,12 @@
-/*using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using CIS_560_Final_Project.Models;
+using CIS_560_Final_Project.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,25 +18,26 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CIS_560_Final_Project.Controllers
 {
-    [Route("Account")]
+    [Authorize]
+    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly ILogger<AccountController> _logger;
+        private readonly UserManager<Users> _userManager;
+        private readonly SignInManager<Users> _signInManager;
+        private readonly ILogger _logger;
+
         public AccountController(
-            UserManager<Members> userManager,
-            SignInManager<Members> signInManager,
+            UserManager<Users> userManager,
+            SignInManager<Users> signInManager,
             ILogger<AccountController> logger)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+
+            _userManager = userManager;
+            _signInManager = signInManager;
             _logger = logger;
         }
 
-        public UserManager<Members> UserManager { get; }
-        public SignInManager<Members> 
 
-
-        [Route("Account/index")]
         public IActionResult Index()
         {
             return View();
@@ -42,52 +45,112 @@ namespace CIS_560_Final_Project.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("Account/Register")]
-        public IActionResult Register()
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(Members model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            if (!ModelState.IsValid)
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
             {
-                return View();
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
             }
-
-            var user = new Members { Username = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if(result.Succeeded)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View("Error");
-            }
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(Members model, string username, string password)
+        public async Task<IActionResult> Register(RegisterViewModel registermodel, string returnUrl=null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new Users{ 
+                    Email = registermodel.Email,
+                    UserName = registermodel.Email,
+                    EmailConfirmed = true };
+
+                var result = await _userManager.CreateAsync(user, registermodel.Password);
+                if(result.Succeeded)
+                {
+                    _logger.LogInformation("User Created");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToLocal(returnUrl);
+                }
+                AddErrors(result);
+            }
+            return View(registermodel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+
+        [HttpGet]
+        public IActionResult AccessDenied()
         {
             return View();
         }
 
-        public IActionResult Error()
+        #region Helpers
+
+        private void AddErrors(IdentityResult result)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
         }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
+
+        #endregion
+
     }
 }
-*/
