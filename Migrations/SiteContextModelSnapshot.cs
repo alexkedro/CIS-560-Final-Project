@@ -178,10 +178,6 @@ namespace CIS560FinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Division")
-                        .IsRequired()
-                        .HasMaxLength(10);
-
                     b.Property<int>("GameID");
 
                     b.Property<string>("Name")

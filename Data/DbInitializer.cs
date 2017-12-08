@@ -1,20 +1,22 @@
 using CIS_560_Final_Project.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using CIS_560_Final_Project.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 namespace CIS_560_Final_Project.Data
 {
-    public static class DbInitializer
+    public class DbInitializer 
     {
+
         // Seed database
-        public static void Initialize(SiteContext context)
+        public static async Task Initialize(SiteContext context, UserManager<Users> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             context.Database.EnsureCreated();
 
-
+           
             if(!context.Games.Any())
             {
                 var games = new Games[]
@@ -74,40 +76,40 @@ namespace CIS_560_Final_Project.Data
                 context.SaveChanges();
             }
 
+            //Create admin user and role
+            await CreateAdmin(context, userManager, roleManager);
+       }
+
+        public static async Task CreateAdmin(SiteContext context, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
+        {
             // Add roles
-            if(!context.Roles.Any())
+            string[] roles = new string[] {"Admin", "User"};
+            foreach(string role in roles)
             {
-                string[] roles = new string[] {"Administrator", "User"};
-                foreach(string role in roles)
-                {
-                    var roleStore = new RoleStore<IdentityRole>(context);
-                    if (!context.Roles.Any(r => r.Name == role))
-                    {
-                        roleStore.CreateAsync(new IdentityRole(role));
-                    }
-                }
+                await roleManager.CreateAsync(new IdentityRole(role));
             }
 
             // Add admin user
-            if (!context.Users.Any(u => u.UserName == "Admin"))
+            if (!context.Users.Any(u => u.UserName == "admin@admin.com"))
             {
                 var user = new Users
                 {
                     Email="admin@admin.com",
                     NormalizedEmail="ADMIN@ADMIN.COM",
-                    UserName="Admin",
-                    NormalizedUserName="ADMIN",
+                    UserName="admin@admin.com",
+                    NormalizedUserName="ADMIN@ADMIN.COM",
                     EmailConfirmed = true,
                 };
+                var result = await userManager.CreateAsync(user, "Password123");
 
-                var password = new PasswordHasher<Users>();
-                var hashed = password.HashPassword(user,"Password123");
-                user.PasswordHash = hashed;
-
-                var userStore = new UserStore<Users>(context);
-                var result = userStore.CreateAsync(user);
+                var adminuser = await userManager.FindByEmailAsync("admin@admin.com");
+                if(result.Succeeded)
+                {
+                    var addresult = await userManager.AddToRoleAsync(adminuser, "Admin");
+                }
             }
-            context.SaveChangesAsync();
+
+            
         }
 
     }

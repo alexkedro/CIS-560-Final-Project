@@ -24,10 +24,5 @@ namespace CIS_560_Final_Project.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string Division { get; set; }
-
-
     }
 }

@@ -103,6 +103,7 @@ namespace CIS_560_Final_Project.Controllers
                 var result = await _userManager.CreateAsync(user, registermodel.Password);
                 if(result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(await _userManager.FindByEmailAsync(registermodel.Email), "User");
                     _logger.LogInformation("User Created");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);

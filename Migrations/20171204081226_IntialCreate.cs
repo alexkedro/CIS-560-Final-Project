@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIS560FinalProject.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -215,7 +215,6 @@ namespace CIS560FinalProject.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Division = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
                     GameID = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     SchoolID = table.Column<int>(type: "int", nullable: false)

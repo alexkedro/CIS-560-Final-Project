@@ -13,8 +13,8 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20171204003530_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20171204081226_IntialCreate")]
+    partial class IntialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,10 +178,6 @@ namespace CIS560FinalProject.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Division")
-                        .IsRequired()
-                        .HasMaxLength(10);
 
                     b.Property<int>("GameID");
 

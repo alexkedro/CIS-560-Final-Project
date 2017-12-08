@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIS_560_Final_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CIS_560_Final_Project.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly SiteContext _context;

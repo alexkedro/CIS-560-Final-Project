@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using CIS_560_Final_Project.Models;
 using CIS_560_Final_Project.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace CIS_560_Final_Project
 {
@@ -18,14 +19,16 @@ namespace CIS_560_Final_Project
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
+                    var userManager = services.GetRequiredService<UserManager<Users>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     var context = services.GetRequiredService<SiteContext>();
-                    DbInitializer.Initialize(context);
+
+                    DbInitializer.Initialize(context,userManager,roleManager).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -33,7 +36,6 @@ namespace CIS_560_Final_Project
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-
             host.Run();
         }
 
