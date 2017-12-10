@@ -1,0 +1,12 @@
+﻿@using CIS_560_Final_Project.Views.Manage
+@inject SignInManager<Users> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<ul class="nav nav-pills nav-stacked">
+    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-action="Index">Profile</a></li>
+    <li class="@ManageNavPages.PlayerNavClass(ViewContext)"><a asp-action="Player">Player</a></li>
+    <li class="@ManageNavPages.TeamNavClass(ViewContext)"><a asp-action="Team">Team</a></li>
+</ul>
+

@@ -32,6 +32,8 @@ namespace CIS_560_Final_Project.Models
 
         public int? Population { get; set; }
 
+        public List<Teams> teams { get; set;}
+
     }
 
 }

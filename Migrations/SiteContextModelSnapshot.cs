@@ -546,7 +546,7 @@ namespace CIS560FinalProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIS_560_Final_Project.Models.Schools", "School")
-                        .WithMany()
+                        .WithMany("teams")
                         .HasForeignKey("SchoolID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

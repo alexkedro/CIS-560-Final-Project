@@ -12,6 +12,7 @@ namespace CIS_560_Final_Project.Models
 
         [Required]
         public bool IsManager { set; get; }
+
         [Required]
         public int YearsCoaching { set; get; }
 

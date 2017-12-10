@@ -1,0 +1,48 @@
+@model PlayerViewModel
+@{
+    ViewData["Title"] = "Player";
+    ViewData.AddActivePage(ManageNavPages.Player);
+}
+
+<h4>@ViewData["Title"]</h4>
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth"></label>
+                <input asp-for="DateOfBirth" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="IsManager"></label>
+                <input asp-for="IsManager" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="YearsCoaching"></label>
+                <input asp-for="YearsCoaching" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="IGN"></label>
+                <input asp-for="IGN" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control" disabled />
+            </div>
+            <button type="submit" class="btn btn-default">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -13,8 +13,8 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20171204081226_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20171210095005_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -547,7 +547,7 @@ namespace CIS560FinalProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIS_560_Final_Project.Models.Schools", "School")
-                        .WithMany()
+                        .WithMany("teams")
                         .HasForeignKey("SchoolID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

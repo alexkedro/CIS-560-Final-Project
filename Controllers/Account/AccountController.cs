@@ -37,12 +37,6 @@ namespace CIS_560_Final_Project.Controllers
             _logger = logger;
         }
 
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
