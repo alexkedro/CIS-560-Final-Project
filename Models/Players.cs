@@ -17,9 +17,8 @@ namespace CIS_560_Final_Project.Models
         public ICollection<TeamsMembers> TeamsMembers { set; get; }
 
         [Required]
-        [ForeignKey("Aliases")]
-        public int AliasID { set; get; }
-        public Aliases Alias { set; get; }
+        [Display (Name = "In-Game Name")]
+        public string IGN { set; get; }
 
     }
 

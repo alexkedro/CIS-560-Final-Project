@@ -107,39 +107,105 @@ namespace CIS_560_Final_Project.Controllers
             var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
             var player = await _context.Players.SingleOrDefaultAsync(i => i.User == user);
 
-            if(coach == null && player == null)
+            if (coach == null && player == null)
             {
-                return View();
+                var model = new PlayerViewModel
+                {
+                    FirstName = "Hi",
+                    LastName = "Ali",
+                    DateOfBirth = new DateTime(2017, 12, 20),
+                    Joined = new DateTime(2017, 12, 12),
+                    cop = CoachOrPlayer.Member
+                };
+                return View(model);
             }
 
-            if(coach != null)
+            if (coach != null)
             {
                 var model = new PlayerViewModel
                 {
                     FirstName = coach.FirstName,
                     LastName = coach.LastName,
                     DateOfBirth = coach.DateOfBirth,
+                    Joined = coach.Joined,
                     IsManager = coach.IsManager,
-                    YearsCoaching = coach.YearsCoaching
+                    YearsCoaching = coach.YearsCoaching,
+                    cop = CoachOrPlayer.Coach
                 };
                 return View(model);
             }
             else
             {
-                var alias = await _context.Aliases.SingleOrDefaultAsync(i => i.ID == player.Alias.ID);
                 var model = new PlayerViewModel
                 {
                     FirstName = player.FirstName,
                     LastName = player.LastName,
                     DateOfBirth = player.DateOfBirth,
-                    IGN = alias.IGN,
+                    Joined = player.Joined,
+                    IGN = player.IGN,
                     Year = player.Year,
+                    cop = CoachOrPlayer.Player
                 };
                 return View(model);
             }
-            
+
         }
-        
+        [HttpPost, ActionName("SelectRole")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Player(PlayerViewModel model, int id)
+        {            
+            var user = await _userManager.GetUserAsync(User);
+
+            //Add Coach
+            if (id == 1)
+            {
+                var coach = new Coaches
+                {
+                    FirstName = "",
+                    LastName = "",
+                    User = user,
+                    Joined = DateTime.UtcNow,
+                    DateOfBirth = DateTime.UtcNow,
+                    YearsCoaching = 0,
+                    IsManager = false
+                };
+
+                await _context.AddAsync(coach);
+                await _context.SaveChangesAsync();
+
+                StatusMessage = "You have been set as a Coach!";
+                return RedirectToAction(nameof(Player));
+            }
+            //Add player
+            else
+            {
+               var alias = new Aliases
+                {
+                    IGN = ""
+                };
+
+                var player = new Players
+                {
+                    FirstName = "",
+                    LastName = "",
+                    Joined = DateTime.UtcNow,
+                    DateOfBirth = DateTime.UtcNow,
+                    User = user,
+                    IGN = "",
+                    Year = model.Year
+                };
+
+                await _context.AddAsync(alias);
+                await _context.AddAsync(player);
+                await _context.SaveChangesAsync();
+
+                StatusMessage = "You have been set as a Coach!";
+                return RedirectToAction(nameof(Player));
+            }
+
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Player(PlayerViewModel model, string returnUrl = null)
@@ -158,11 +224,13 @@ namespace CIS_560_Final_Project.Controllers
             var member = await _context.Members.SingleOrDefaultAsync(i => i.User == user);
 
             //Create
-            if(member == null)
+            if (member == null)
             {
                 //Add Coach
-                if(model.cop == CoachOrPlayer.Coach){
-                    var coach = new Coaches{
+                if (model.cop == CoachOrPlayer.Coach)
+                {
+                    var coach = new Coaches
+                    {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Joined = DateTime.UtcNow,
@@ -178,21 +246,18 @@ namespace CIS_560_Final_Project.Controllers
                     return RedirectToAction(nameof(Player));
                 }
                 //Add player
-                else if (model.cop == CoachOrPlayer.Player) {
-                    var alias = new Aliases{
-                        IGN = model.IGN
-                    };
-
-                    var player = new Players{
+                else if (model.cop == CoachOrPlayer.Player)
+                {
+                    var player = new Players
+                    {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Joined = DateTime.UtcNow,
                         DateOfBirth = model.DateOfBirth,
-                        Alias = alias,
+                        IGN = model.IGN,
                         Year = model.Year
                     };
 
-                    await _context.AddAsync(alias);
                     await _context.AddAsync(player);
                     await _context.SaveChangesAsync();
 
@@ -201,25 +266,22 @@ namespace CIS_560_Final_Project.Controllers
                 }
             }
             //update
-            else {
+            else
+            {
                 var playerUpdate = await _context.Players.SingleOrDefaultAsync(i => i.User == user);
                 var coachUpdate = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
 
-                if(playerUpdate != null)
+                if (playerUpdate != null)
                 {
-                    var alias = new Aliases{
-                        IGN = model.IGN
-                    };
-
-                    var player = new Players{
+                    var player = new Players
+                    {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         DateOfBirth = model.DateOfBirth,
-                        Alias = alias,
+                        IGN = model.IGN,
                         Year = model.Year
                     };
 
-                    _context.Update(alias);
                     _context.Update(player);
                     _context.SaveChanges();
 
@@ -229,7 +291,8 @@ namespace CIS_560_Final_Project.Controllers
                 }
                 else if (coachUpdate != null)
                 {
-                    var coach = new Coaches{
+                    var coach = new Coaches
+                    {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         DateOfBirth = model.DateOfBirth,
