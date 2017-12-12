@@ -13,7 +13,7 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20171212090056_IntialCreate")]
+    [Migration("20171212110909_IntialCreate")]
     partial class IntialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -435,11 +435,10 @@ namespace CIS560FinalProject.Migrations
                 {
                     b.HasBaseType("CIS_560_Final_Project.Models.Members");
 
-                    b.Property<int>("AliasID");
+                    b.Property<string>("IGN")
+                        .IsRequired();
 
                     b.Property<int>("Year");
-
-                    b.HasIndex("AliasID");
 
                     b.ToTable("Players");
 
@@ -628,14 +627,6 @@ namespace CIS560FinalProject.Migrations
                     b.HasOne("CIS_560_Final_Project.Models.Users")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.Players", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Aliases", "Alias")
-                        .WithMany()
-                        .HasForeignKey("AliasID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

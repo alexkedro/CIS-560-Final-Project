@@ -434,11 +434,10 @@ namespace CIS560FinalProject.Migrations
                 {
                     b.HasBaseType("CIS_560_Final_Project.Models.Members");
 
-                    b.Property<int>("AliasID");
+                    b.Property<string>("IGN")
+                        .IsRequired();
 
                     b.Property<int>("Year");
-
-                    b.HasIndex("AliasID");
 
                     b.ToTable("Players");
 
@@ -627,14 +626,6 @@ namespace CIS560FinalProject.Migrations
                     b.HasOne("CIS_560_Final_Project.Models.Users")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.Players", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Aliases", "Alias")
-                        .WithMany()
-                        .HasForeignKey("AliasID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
