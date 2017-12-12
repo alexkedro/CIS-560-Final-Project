@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CIS_560_Final_Project.Models.Schools>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        <a asp-action="CreateSchool">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th> 
+                <th>
+                    @Html.DisplayNameFor(model => model.Address1)
+                </th>                
+                <th>
+                    @Html.DisplayNameFor(model => model.Population)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Population)
+                    </td>
+                    <td>
+                        <a asp-action="EditSchool" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="DeleteSchool" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<div>
+    <a asp-action="Index">Back To Admin Page</a>
+</div>
+

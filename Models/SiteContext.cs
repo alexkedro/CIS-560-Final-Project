@@ -14,7 +14,7 @@ namespace CIS_560_Final_Project.Models
     public class SiteContext : IdentityDbContext<Users>
     {
         public DbSet<Schools> Schools { get; set; }
-        public DbSet<Members> Member { get; set; }
+        public DbSet<Members> Members { get; set; }
         public DbSet<Players> Players { get; set; }
         public DbSet<Coaches> Coaches { get; set; }
         public DbSet<Teams> Teams { get; set; }

@@ -1,0 +1,41 @@
+﻿@model CIS_560_Final_Project.Models.Games
+
+@{
+    ViewData["Title"] = "Create Game";
+}
+
+<h2>Create a Game</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateGame">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Abv" class="control-label"></label>
+                <input asp-for="Abv" class="form-control" />
+                <span asp-validation-for="Abv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company" class="control-label"></label>
+                <input asp-for="Company" class="form-control" />
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Games">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

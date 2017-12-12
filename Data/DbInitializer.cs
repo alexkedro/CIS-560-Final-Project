@@ -40,8 +40,8 @@ namespace CIS_560_Final_Project.Data
             {
                 var schools = new Schools[]
                 {
-                    new Schools{Name="Kansas State University",Address1="Manhattan, KS",City="Manhattan",State=States.KS},
-                    new Schools{Name="University of Kansas",Address1="Lawerence, KS",City="Lawerence",State=States.KS}
+                    new Schools{Name="Kansas State University",Address1="Manhattan, KS 66506",City="Manhattan",State=States.KS, Population = 24766},
+                    new Schools{Name="University of Kansas",Address1="Lawerence, KS 66045",City="Lawerence",State=States.KS, Population = 28401}
                 };
 
                 foreach(Schools s in schools)
@@ -72,6 +72,79 @@ namespace CIS_560_Final_Project.Data
                 foreach(Teams t in teams)
                 {
                     context.Teams.Add(t);
+                }
+                context.SaveChanges();
+            }
+
+            if (!context.Tournaments.Any())
+            {
+                var tournaments = new Tournaments[]
+                {
+                    new Tournaments
+                    {
+                        Name="Midwest Regionals",
+                        StartDate = new DateTime(2017, 12, 8),
+                        EndDate = new DateTime(2017, 12, 10),
+                        Game=context.Games.Single(s=>s.name=="League of Legends")
+                    }
+
+                };
+                foreach (Tournaments t in tournaments)
+                {
+                    context.Tournaments.Add(t);
+                }
+                context.SaveChanges();
+            }
+
+            if (!context.Matches.Any())
+            {
+                var matches = new Matches[]
+                {
+                    new Matches
+                    {
+                        MatchNumber = 1,
+                        Team1=context.Teams.Single(t => t.ID == 1),
+                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Winner = 1,
+                        Datetime = new DateTime(2017, 12, 10),
+                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                    },
+
+                    new Matches
+                    {
+                        MatchNumber = 2,
+                        Team1=context.Teams.Single(t => t.ID == 1),
+                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Winner = 1,
+                        Datetime = new DateTime(2017, 12, 10),
+                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                    },
+
+                    new Matches
+                    {
+                        MatchNumber = 3,
+                        Team1=context.Teams.Single(t => t.ID == 1),
+                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Winner = 2,
+                        Datetime = new DateTime(2017, 12, 10),
+                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                    },
+
+                    new Matches
+                    {
+                        MatchNumber = 4,
+                        Team1=context.Teams.Single(t => t.ID == 1),
+                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Winner = 1,
+                        Datetime = new DateTime(2017, 12, 10),
+                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                    }
+
+                };
+
+                foreach (Matches m in matches)
+                {
+                    context.Matches.Add(m);
                 }
                 context.SaveChanges();
             }

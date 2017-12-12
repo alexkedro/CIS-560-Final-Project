@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CIS_560_Final_Project.Models.Matches>
+
+@{
+        ViewData["Title"] = "Details";
+    }
+
+<h2>Tournament Details</h2>
+
+<div>
+    <h4>@ViewBag.data1.Name (@ViewBag.data1.Game.name)</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MatchNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Winner)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datetime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team2)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => item.ID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MatchNumber)
+                    </td>
+                    <td>
+                        Team @Html.DisplayFor(modelItem => item.Winner)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datetime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Team1.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Team2.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+        <a asp-action="Tournaments">Back To Tournaments</a>
+    
+</div>

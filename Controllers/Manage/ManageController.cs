@@ -155,7 +155,7 @@ namespace CIS_560_Final_Project.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var member = await _context.Member.SingleOrDefaultAsync(i => i.User == user);
+            var member = await _context.Members.SingleOrDefaultAsync(i => i.User == user);
 
             //Create
             if(member == null)
