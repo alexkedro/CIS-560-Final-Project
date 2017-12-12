@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIS560FinalProject.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

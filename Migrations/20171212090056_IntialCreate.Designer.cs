@@ -13,8 +13,8 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20171210095005_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20171212090056_IntialCreate")]
+    partial class IntialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
