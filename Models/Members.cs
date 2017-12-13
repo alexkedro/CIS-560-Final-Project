@@ -29,13 +29,16 @@ namespace CIS_560_Final_Project.Models
         public string LastName { set; get; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date Joined")]
         public DateTime Joined { set; get; }
 
         [DataType(DataType.Date)]
+        [Display (Name = "Date of Birth")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { set; get; }
 
-
+        [Display (Name = "Name")]
         public string FullName
         {
             get 

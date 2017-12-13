@@ -724,7 +724,43 @@ namespace CIS_560_Final_Project.Controllers
 
         #region Player Stuff
 
+        public async Task<IActionResult> Players(int? id)
+        {
 
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                List<Models.Players> players = new List<Models.Players>();
+                List<Models.Coaches> coaches = new List<Models.Coaches>();
+                var siteContext = _context.TeamsMembers.Include(tm => tm.Member).Include(tm => tm.Team).Where(tm => tm.Team.ID == id);
+                IEnumerable<TeamsMembers> members = await siteContext.ToListAsync();
+                foreach(TeamsMembers tm in members)
+                {
+                    var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.ID == tm.ID);
+                    var player = await _context.Players.SingleOrDefaultAsync(i => i.ID == tm.ID);
+
+                    if(coach != null)
+                    {
+                        coaches.Add(coach);
+                    }
+                    else if(player != null)
+                    {
+                        players.Add(player);
+                    }
+                }
+
+                ViewBag.players = players;
+                ViewBag.coaches = coaches;
+                
+                ViewBag.search = true;
+                ViewBag.tname = _context.Tournaments.Single(t => t.ID == id).Name;
+                ViewBag.tid = id;
+                return View(await siteContext.ToListAsync());
+            }
+        }
 
         #endregion
     }

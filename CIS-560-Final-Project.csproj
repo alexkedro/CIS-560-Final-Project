@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\AdminViewModels\**" />
-    <Content Remove="Models\AdminViewModels\**" />
-    <EmbeddedResource Remove="Models\AdminViewModels\**" />
-    <None Remove="Models\AdminViewModels\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0-rtm-*" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
@@ -29,6 +22,10 @@
     <None Include="wwwroot\Media\pic2.jpg" />
     <None Include="wwwroot\Media\pic3.jpg" />
     <None Include="wwwroot\Media\pic4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\AdminViewModels\" />
   </ItemGroup>
 
 </Project>
