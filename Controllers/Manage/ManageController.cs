@@ -107,6 +107,7 @@ namespace CIS_560_Final_Project.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #region Player
         [HttpGet]
         public async Task<IActionResult> Player()
         {
@@ -308,6 +309,7 @@ namespace CIS_560_Final_Project.Controllers
         {
             return RedirectToAction("Player");
         }
+        #endregion
 
         #region Helpers
 
