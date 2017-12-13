@@ -33,8 +33,8 @@ namespace CIS_560_Final_Project.Controllers
                 IEnumerable<TeamsMembers> members = await siteContext.ToListAsync();
                 foreach (TeamsMembers tm in members)
                 {
-                    var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.ID == tm.ID);
-                    var player = await _context.Players.SingleOrDefaultAsync(i => i.ID == tm.ID);
+                    var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.ID == tm.Member.ID);
+                    var player = await _context.Players.SingleOrDefaultAsync(i => i.ID == tm.Member.ID);
 
                     if (coach != null)
                     {

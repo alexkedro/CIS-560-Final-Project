@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Teams";
-    ViewData.AddActivePage(ManageNavPages.Index);
+    ViewData.AddActivePage(ManageNavPages.Team);
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -19,6 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Year)
             </th>
+            <th>
+                Add to Team
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +36,11 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    <form asp-action="TeamAdd" asp-route-id="@item.ID">
+                        <input type="submit" value="+" class="btn btn-default" />
+                    </form>
                 </td>
             </tr>
         }
