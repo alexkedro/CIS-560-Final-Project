@@ -49,11 +49,22 @@ namespace CIS_560_Final_Project.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            
             var user = await _userManager.GetUserAsync(User);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            foreach (string s in roles)
+            {
+                if (s.Equals("Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
+
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+            
 
             var model = new IndexViewModel
             {
@@ -111,10 +122,11 @@ namespace CIS_560_Final_Project.Controllers
             {
                 var model = new PlayerViewModel
                 {
-                    FirstName = "Hi",
-                    LastName = "Ali",
-                    DateOfBirth = new DateTime(2017, 12, 20),
-                    Joined = new DateTime(2017, 12, 12),
+                    ID = default(int),
+                    FirstName = "",
+                    LastName = "",
+                    DateOfBirth = DateTime.UtcNow,
+                    Joined = DateTime.UtcNow,
                     cop = CoachOrPlayer.Member
                 };
                 return View(model);
@@ -124,6 +136,7 @@ namespace CIS_560_Final_Project.Controllers
             {
                 var model = new PlayerViewModel
                 {
+                    ID = coach.ID,
                     FirstName = coach.FirstName,
                     LastName = coach.LastName,
                     DateOfBirth = coach.DateOfBirth,
@@ -138,6 +151,7 @@ namespace CIS_560_Final_Project.Controllers
             {
                 var model = new PlayerViewModel
                 {
+                    ID = player.ID,
                     FirstName = player.FirstName,
                     LastName = player.LastName,
                     DateOfBirth = player.DateOfBirth,
@@ -150,10 +164,12 @@ namespace CIS_560_Final_Project.Controllers
             }
 
         }
+
+
         [HttpPost, ActionName("SelectRole")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Player(PlayerViewModel model, int id)
-        {            
+        {
             var user = await _userManager.GetUserAsync(User);
 
             //Add Coach
@@ -179,11 +195,6 @@ namespace CIS_560_Final_Project.Controllers
             //Add player
             else
             {
-               var alias = new Aliases
-                {
-                    IGN = ""
-                };
-
                 var player = new Players
                 {
                     FirstName = "",
@@ -195,7 +206,6 @@ namespace CIS_560_Final_Project.Controllers
                     Year = model.Year
                 };
 
-                await _context.AddAsync(alias);
                 await _context.AddAsync(player);
                 await _context.SaveChangesAsync();
 
@@ -205,7 +215,7 @@ namespace CIS_560_Final_Project.Controllers
 
         }
 
-
+        //Only can happen if user is coach or player
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Player(PlayerViewModel model, string returnUrl = null)
@@ -223,90 +233,48 @@ namespace CIS_560_Final_Project.Controllers
 
             var member = await _context.Members.SingleOrDefaultAsync(i => i.User == user);
 
-            //Create
-            if (member == null)
-            {
-                //Add Coach
-                if (model.cop == CoachOrPlayer.Coach)
-                {
-                    var coach = new Coaches
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Joined = DateTime.UtcNow,
-                        DateOfBirth = model.DateOfBirth,
-                        YearsCoaching = model.YearsCoaching,
-                        IsManager = model.IsManager
-                    };
-
-                    await _context.AddAsync(coach);
-                    await _context.SaveChangesAsync();
-
-                    StatusMessage = "Your profile has been updated";
-                    return RedirectToAction(nameof(Player));
-                }
-                //Add player
-                else if (model.cop == CoachOrPlayer.Player)
-                {
-                    var player = new Players
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Joined = DateTime.UtcNow,
-                        DateOfBirth = model.DateOfBirth,
-                        IGN = model.IGN,
-                        Year = model.Year
-                    };
-
-                    await _context.AddAsync(player);
-                    await _context.SaveChangesAsync();
-
-                    StatusMessage = "Your profile has been updated";
-                    return RedirectToAction(nameof(Player));
-                }
-            }
             //update
-            else
+            var playerUpdate = await _context.Players.SingleOrDefaultAsync(i => i.User == user);
+            var coachUpdate = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
+
+            if (playerUpdate != null)
             {
-                var playerUpdate = await _context.Players.SingleOrDefaultAsync(i => i.User == user);
-                var coachUpdate = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
-
-                if (playerUpdate != null)
+                var player = new Players
                 {
-                    var player = new Players
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        DateOfBirth = model.DateOfBirth,
-                        IGN = model.IGN,
-                        Year = model.Year
-                    };
+                    ID = playerUpdate.ID,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DateOfBirth = model.DateOfBirth,
+                    IGN = model.IGN,
+                    Year = model.Year
+                };
 
-                    _context.Update(player);
-                    _context.SaveChanges();
+                _context.Update(player);
+                _context.SaveChanges();
 
 
-                    StatusMessage = "Your profile has been updated";
-                    return RedirectToAction(nameof(Index));
-                }
-                else if (coachUpdate != null)
-                {
-                    var coach = new Coaches
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        DateOfBirth = model.DateOfBirth,
-                        YearsCoaching = model.YearsCoaching,
-                        IsManager = model.IsManager
-                    };
-
-                    _context.Update(coach);
-                    _context.SaveChanges();
-
-                    StatusMessage = "Your profile has been updated";
-                    return RedirectToAction(nameof(Player));
-                }
+                StatusMessage = "Your profile has been updated";
+                return RedirectToAction(nameof(Index));
             }
+            else if (coachUpdate != null)
+            {
+                var coach = new Coaches
+                {
+                    ID = coachUpdate.ID,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DateOfBirth = model.DateOfBirth,
+                    YearsCoaching = model.YearsCoaching,
+                    IsManager = model.IsManager
+                };
+
+                _context.Update(coach);
+                _context.SaveChanges();
+
+                StatusMessage = "Your profile has been updated";
+                return RedirectToAction(nameof(Player));
+            }
+
             return View(model);
         }
 
