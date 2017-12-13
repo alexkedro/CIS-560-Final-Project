@@ -1,3 +1,9 @@
 # CIS-560-Final-Project
 
-Let me tell you, this is the dankest final project the world has ever seen.
+Its a Mastapiece. 10/10.
+
+E-Sports Management system created by:
+Ali Ali
+Dakota Darpinian
+Zakary Kedrovsky
+Ryan Walker
