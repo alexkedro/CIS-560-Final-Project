@@ -24,4 +24,11 @@
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Media\pic1.jpg" />
+    <None Include="wwwroot\Media\pic2.jpg" />
+    <None Include="wwwroot\Media\pic3.jpg" />
+    <None Include="wwwroot\Media\pic4.jpg" />
+  </ItemGroup>
+
 </Project>
