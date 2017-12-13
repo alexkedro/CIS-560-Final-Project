@@ -9,12 +9,12 @@ namespace CIS_560_Final_Project.Models.ManageViewModels
     public class TeamViewModel
     {
         [Required]
-        [Display (Name = "Schools")]
-        public List<Schools> Schools { get; set; } 
+        [Display (Name = "School")]
+        public Schools School { get; set; } 
 
         [Required]
-        [Display(Name = "Games")]
-        public List<Games> Games { get; set; } 
+        [Display(Name = "Game")]
+        public Games Game { get; set; } 
 
         [Required]
         [StringLength(100)]

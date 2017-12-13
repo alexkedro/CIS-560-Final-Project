@@ -1,22 +1,23 @@
 ﻿@model TeamViewModel
 @{
     ViewData["Title"] = "Team Register";
+    ViewData.AddActivePage(ManageNavPages.Team);
 }
 
 <h2>Register Team</h2>
-
+@Html.Partial("_StatusMessage", Model.StatusMessage)
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="TeamRegister">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Schools" class="control-label">Game</label>
-                <select asp-for="Schools" class="form-control" asp-items="@ViewBag.SchoolsID"></select>
+                <label asp-for="School" class="control-label">Game</label>
+                <select asp-for="School" class="form-control" asp-items="@ViewBag.SchoolsID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Games" class="control-label">Game</label>
-                <select asp-for="Games" class="form-control" asp-items="ViewBag.GamesID"></select>
+                <label asp-for="Game" class="control-label">Game</label>
+                <select asp-for="Game" class="form-control" asp-items="ViewBag.GamesID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
