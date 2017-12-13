@@ -8,11 +8,18 @@ namespace CIS_560_Final_Project.Models.ManageViewModels
 {
     public class TeamViewModel
     {
-        public bool IsEmailConfirmed { get; set; }
+        [Required]
+        [Display (Name = "Schools")]
+        public List<Schools> Schools { get; set; } 
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Schools")]
+        public List<Games> Games { get; set; } 
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Team Name")]
+        public string Name { get; set; }
 
         public string StatusMessage { get; set; }
     }

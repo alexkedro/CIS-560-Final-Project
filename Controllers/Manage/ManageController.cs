@@ -362,6 +362,96 @@ namespace CIS_560_Final_Project.Controllers
             }
         }
 
+        [HttpPost, ActionName("TeamAdd")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Team(int? id)
+        {
+            var player = await _context.Players.SingleOrDefaultAsync(i => i.ID == id);
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
+            var coachTeam = await _context.TeamsMembers.SingleOrDefaultAsync(i => i.Member == coach);
+
+            if(coachTeam == null)
+            {
+                StatusMessage = "Your profile has been updated";
+                return RedirectToAction(nameof(TeamRegister));
+            }
+
+            var teamsMembers = new TeamsMembers
+            {
+                Member = player,
+                Team = coachTeam.Team,
+            };
+
+            await _context.TeamsMembers.AddAsync(teamsMembers);
+            var result = await _context.SaveChangesAsync();
+            StatusMessage = "Player " + player.FullName + " Added to team";
+            return RedirectToAction(nameof(Team));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> TeamRegister()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var schools = await _context.Schools.ToListAsync();
+            var games = await _context.Games.ToListAsync();
+
+            var model = new TeamViewModel
+            {
+                Schools = schools,
+                Games = games,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TeamRegister(TeamViewModel model, string returnUrl = null)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
+            var newteam = new Teams
+            {
+                School = model.Schools.FirstOrDefault(),
+                Game = model.Games.FirstOrDefault(),
+                Name = model.Name
+            };
+            
+
+            await _context.AddAsync(newteam);
+            await _context.SaveChangesAsync();
+
+            var team = await _context.Teams.SingleOrDefaultAsync(i => i.Name == newteam.Name);
+
+            var teamsMemebers = new TeamsMembers
+            {
+                Team = team,
+                Member = coach
+            };
+
+            await _context.AddAsync(teamsMemebers);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Team));
+        }
+
         #endregion
 
         #region Helpers
