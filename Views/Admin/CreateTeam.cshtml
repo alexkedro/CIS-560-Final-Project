@@ -1,0 +1,38 @@
+﻿@model CIS_560_Final_Project.Models.Teams
+
+@{
+    ViewData["Title"] = "Create Team";
+}
+
+<h2>Create Team</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateTeam" asp-route-tid="@ViewBag.tid">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SchoolID" class="control-label"></label>
+                <select asp-for="SchoolID" class ="form-control" asp-items="ViewBag.SchoolID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameID" class="control-label"></label>
+                <select asp-for="GameID" class ="form-control" asp-items="ViewBag.GameID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+     @if(ViewBag.tid == -1) {<a asp-action="Teams">Back to List</a> }
+    @if(ViewBag.tid != -1) {<a asp-action="Teams" asp-route-id="@ViewBag.tid">Back to List</a> }
+</div>
+

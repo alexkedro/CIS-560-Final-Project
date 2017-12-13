@@ -164,36 +164,36 @@ namespace CIS_560_Final_Project.Data
                         School=context.Schools.Single(s=>s.Name=="Kansas State University")
                     },
                     new Teams{Name="KU A-Team",Game=context.Games.Single(s=>s.name=="League of Legends"),School=context.Schools.Single(s=>s.Name=="University of Kansas")},
-                    new Teams{ Name = "Cadillac), Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
-    new Teams{ Name = "Ford), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
-    new Teams{ Name = "Porsche), Game = context.Games.Single(s=>s.name=="Counter Strike Global Offensive"), School=context.Schools.Single(s=>s.Name=="Magna Foundation") },
-    new Teams{ Name = "Lincoln), Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
-    new Teams{ Name = "FAW), Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Malesuada Fringilla Corporation") },
-    new Teams{ Name = "Killa Whales), Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
-    new Teams{ Name = "Volkswagen), Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Magna Foundation") },
-    new Teams{ Name = "Acura), Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Mus Proin Vel Industries") },
-    new Teams{ Name = "Mercedes-Benz), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Malesuada Fringilla Corporation") },
-    new Teams{ Name = "Ishtar), Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Mus Proin Vel Industries") },
-    new Teams{ Name = "Smart), Game = context.Games.Single(s=>s.name=="Counter Strike Global Offensive"), School=context.Schools.Single(s=>s.Name=="Magna Foundation") },
-    new Teams{ Name = "Subaru), Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="University of Kansas") },
-    new Teams{ Name = "Peugeot), Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
-    new Teams{ Name = "Fiat), Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
-    new Teams{ Name = "Citroën), Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="University of Kansas") },
-    new Teams{ Name = "Peugeot), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
-    new Teams{ Name = "Lexus), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
-    new Teams{ Name = "Chrysler), Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
-    new Teams{ Name = "JLR), Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
-    new Teams{ Name = "Seat), Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Tincidunt Associates") },
-    new Teams{ Name = "Bibibibibi), Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
-    new Teams{ Name = "Acura), Game = context.Games.Single(s=>s.name=="Counter Strike Global Offensive"), School=context.Schools.Single(s=>s.Name=="Mus Proin Vel Industries") },
-    new Teams{ Name = "Ka-chow), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Kansas State University") },
-    new Teams{ Name = "Citroën), Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
-    new Teams{ Name = "Isuzu), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Malesuada Fringilla Corporation") },
-    new Teams{ Name = "Nissan), Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Kansas State University") },
-    new Teams{ Name = "Seat), Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
-    new Teams{ Name = "Nissan), Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
-    new Teams{ Name = "Tata Motors), Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
-    new Teams{ Name = "Audi), Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Mi Enim Condimentum Consulting") }
+                    new Teams{ Name = "Cadillac", Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
+                    new Teams{ Name = "Ford", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
+                    new Teams{ Name = "Porsche", Game = context.Games.Single(s=>s.name=="Counter Strike Global Offensive"), School=context.Schools.Single(s=>s.Name=="Magna Foundation") },
+                    new Teams{ Name = "Lincoln", Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
+                    new Teams{ Name = "FAW", Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Malesuada Fringilla Corporation") },
+                    new Teams{ Name = "Killa Whales", Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
+                    new Teams{ Name = "Volkswagen", Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Magna Foundation") },
+                    new Teams{ Name = "Acura", Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Mus Proin Vel Industries") },
+                    new Teams{ Name = "Mercedes-Benz", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Malesuada Fringilla Corporation") },
+                    new Teams{ Name = "Ishtar", Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Mus Proin Vel Industries") },
+                    new Teams{ Name = "Smart", Game = context.Games.Single(s=>s.name=="Counter Strike Global Offensive"), School=context.Schools.Single(s=>s.Name=="Magna Foundation") },
+                    new Teams{ Name = "Subaru", Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="University of Kansas") },
+                    new Teams{ Name = "Peugeot", Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
+                    new Teams{ Name = "Fiat", Game = context.Games.Single(s=>s.name=="League of Legends"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
+                    new Teams{ Name = "Citroën", Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="University of Kansas") },
+                    new Teams{ Name = "Peugeot", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
+                    new Teams{ Name = "Lexus", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
+                    new Teams{ Name = "Chrysler", Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
+                    new Teams{ Name = "JLR", Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
+                    new Teams{ Name = "Seat", Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Tincidunt Associates") },
+                    new Teams{ Name = "Bibibibibi", Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
+                    new Teams{ Name = "Acura", Game = context.Games.Single(s=>s.name=="Counter Strike Global Offensive"), School=context.Schools.Single(s=>s.Name=="Mus Proin Vel Industries") },
+                    new Teams{ Name = "Ka-chow", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Kansas State University") },
+                    new Teams{ Name = "Citroën", Game = context.Games.Single(s=>s.name=="Heroes of the Storm"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
+                    new Teams{ Name = "Isuzu", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Malesuada Fringilla Corporation") },
+                    new Teams{ Name = "Nissan", Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Kansas State University") },
+                    new Teams{ Name = "Seat", Game = context.Games.Single(s=>s.name=="Dota 2"), School=context.Schools.Single(s=>s.Name=="Tellus Suspendisse Inc.") },
+                    new Teams{ Name = "Nissan", Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Sit LLP") },
+                    new Teams{ Name = "Tata Motors", Game = context.Games.Single(s=>s.name=="Overwatch"), School=context.Schools.Single(s=>s.Name=="Pede Cras Vulputate Inc.") },
+                    new Teams{ Name = "Audi", Game = context.Games.Single(s=>s.name=="Rocket League"), School=context.Schools.Single(s=>s.Name=="Mi Enim Condimentum Consulting") }
                 };
                 foreach (Teams t in teams)
                 {
@@ -217,7 +217,7 @@ namespace CIS_560_Final_Project.Data
                     new Tournaments{ Name = "DMAX 2017", StartDate = new DateTime(2017,05,30), EndDate = new DateTime(2017,06,10), Game=context.Games.Single(s=>s.name=="Dota 2") },
                     new Tournaments{ Name = "futbol leg", StartDate = new DateTime(2017,04,20), EndDate = new DateTime(2017,08,27), Game=context.Games.Single(s=>s.name=="Rocket League") },
                     new Tournaments{ Name = "OW-Maker (ooch owwie)", StartDate = new DateTime(2017,01,15), EndDate = new DateTime(2017,04,26), Game=context.Games.Single(s=>s.name=="Overwatch") }
-  
+
                 };
                 foreach (Tournaments t in tournaments)
                 {
@@ -407,26 +407,25 @@ namespace CIS_560_Final_Project.Data
             {
                 var players = new Players[]
                 {
-    new Players{ FirstName = "Adara", LastName = "Laith", Joined =  new DateTime(2017,03,23), Year =YearClassification.Freshman, IGN = "Nulla aliquet." },
-    new Players{ FirstName = "Hanae", LastName = "Quyn", Joined =  new DateTime(2017,01,29), Year =YearClassification.Freshman, IGN = "gravida non," },
-    new Players{ FirstName = "Joelle", LastName = "Merrill", Joined =  new DateTime(2017,01,29), Year =YearClassification.Junior, IGN = "hendrerit a," },
-    new Players{ FirstName = "Norman", LastName = "Hiram", Joined =  new DateTime(2017,05,22), Year =YearClassification.Senior, IGN = "elit. Curabitur" },
-    new Players{ FirstName = "Allen", LastName = "Tanek", Joined =  new DateTime(2016,12,30), Year =YearClassification.Junior, IGN = "neque. Nullam" },
-    new Players{ FirstName = "Aimee", LastName = "Odette", Joined =  new DateTime(2017,05,01), Year =YearClassification.Junior, IGN = "Donec fringilla." },
-    new Players{ FirstName = "Cadman", LastName = "Tatiana", Joined =  new DateTime(2017,04,29), Year =YearClassification.Senior, IGN = "ridiculus mus." },
-    new Players{ FirstName = "Sophia", LastName = "Arsenio", Joined =  new DateTime(2017,01,09), Year =YearClassification.Junior, IGN = "varius ultrices," },
-    new Players{ FirstName = "Tashya", LastName = "McKenzie", Joined =  new DateTime(2017,02,05), Year =YearClassification.Sophomore, IGN = "ut cursus" },
-    new Players{ FirstName = "Alyssa", LastName = "Sarah", Joined =  new DateTime(2017,01,14), Year =YearClassification.Sophomore, IGN = "feugiat non," },
-    new Players{ FirstName = "Aristotle", LastName = "James", Joined =  new DateTime(2017,01,25), Year =YearClassification.Junior, IGN = "lectus rutrum" },
-    new Players{ FirstName = "Francesca", LastName = "Gay", Joined =  new DateTime(2016,12,28), Year =YearClassification.Freshman, IGN = "Nunc mauris" },
-    new Players{ FirstName = "Baker", LastName = "Maggy", Joined =  new DateTime(2017,06,27), Year =YearClassification.Sophomore, IGN = "gravida non," },
-    new Players{ FirstName = "Yvonne", LastName = "Reed", Joined =  new DateTime(2017,06,02), Year =YearClassification.Junior, IGN = "Fusce dolor" },
-    new Players{ FirstName = "Bert", LastName = "April", Joined =  new DateTime(2017,05,12), Year =YearClassification.Senior, IGN = "rutrum magna." },
-    new Players{ FirstName = "Palmer", LastName = "Berk", Joined =  new DateTime(2017,03,12), Year =YearClassification.Junior, IGN = "malesuada malesuada." },
-    new Players{ FirstName = "Drew", LastName = "Jaden", Joined =  new DateTime(2017,07,21), Year =YearClassification.Senior, IGN = "in, tempus" },
-    new Players{ FirstName = "Tamara", LastName = "Danielle", Joined =  new DateTime(2017,05,19), Year =YearClassification.Senior, IGN = "sem. Nulla" },
-    new Players{ FirstName = "Elizabeth", LastName = "Kylynn", Joined =  new DateTime(2017,07,21), Year =YearClassification.Senior, IGN = "Integer mollis."
-                    }
+                    new Players{ FirstName = "Adara", LastName = "Laith", Joined =  new DateTime(2017,03,23), Year =YearClassification.Freshman, IGN = "Nulla aliquet." },
+                    new Players{ FirstName = "Hanae", LastName = "Quyn", Joined =  new DateTime(2017,01,29), Year =YearClassification.Freshman, IGN = "gravida non," },
+                    new Players{ FirstName = "Joelle", LastName = "Merrill", Joined =  new DateTime(2017,01,29), Year =YearClassification.Junior, IGN = "hendrerit a," },
+                    new Players{ FirstName = "Norman", LastName = "Hiram", Joined =  new DateTime(2017,05,22), Year =YearClassification.Senior, IGN = "elit. Curabitur" },
+                    new Players{ FirstName = "Allen", LastName = "Tanek", Joined =  new DateTime(2016,12,30), Year =YearClassification.Junior, IGN = "neque. Nullam" },
+                    new Players{ FirstName = "Aimee", LastName = "Odette", Joined =  new DateTime(2017,05,01), Year =YearClassification.Junior, IGN = "Donec fringilla." },
+                    new Players{ FirstName = "Cadman", LastName = "Tatiana", Joined =  new DateTime(2017,04,29), Year =YearClassification.Senior, IGN = "ridiculus mus." },
+                    new Players{ FirstName = "Sophia", LastName = "Arsenio", Joined =  new DateTime(2017,01,09), Year =YearClassification.Junior, IGN = "varius ultrices," },
+                    new Players{ FirstName = "Tashya", LastName = "McKenzie", Joined =  new DateTime(2017,02,05), Year =YearClassification.Sophomore, IGN = "ut cursus" },
+                    new Players{ FirstName = "Alyssa", LastName = "Sarah", Joined =  new DateTime(2017,01,14), Year =YearClassification.Sophomore, IGN = "feugiat non," },
+                    new Players{ FirstName = "Aristotle", LastName = "James", Joined =  new DateTime(2017,01,25), Year =YearClassification.Junior, IGN = "lectus rutrum" },
+                    new Players{ FirstName = "Francesca", LastName = "Gay", Joined =  new DateTime(2016,12,28), Year =YearClassification.Freshman, IGN = "Nunc mauris" },
+                    new Players{ FirstName = "Baker", LastName = "Maggy", Joined =  new DateTime(2017,06,27), Year =YearClassification.Sophomore, IGN = "gravida non," },
+                    new Players{ FirstName = "Yvonne", LastName = "Reed", Joined =  new DateTime(2017,06,02), Year =YearClassification.Junior, IGN = "Fusce dolor" },
+                    new Players{ FirstName = "Bert", LastName = "April", Joined =  new DateTime(2017,05,12), Year =YearClassification.Senior, IGN = "rutrum magna." },
+                    new Players{ FirstName = "Palmer", LastName = "Berk", Joined =  new DateTime(2017,03,12), Year =YearClassification.Junior, IGN = "malesuada malesuada." },
+                    new Players{ FirstName = "Drew", LastName = "Jaden", Joined =  new DateTime(2017,07,21), Year =YearClassification.Senior, IGN = "in, tempus" },
+                    new Players{ FirstName = "Tamara", LastName = "Danielle", Joined =  new DateTime(2017,05,19), Year =YearClassification.Senior, IGN = "sem. Nulla" },
+                    new Players{ FirstName = "Elizabeth", LastName = "Kylynn", Joined =  new DateTime(2017,07,21), Year =YearClassification.Senior, IGN = "Integer mollis."}
                 };
             }
 
@@ -434,17 +433,17 @@ namespace CIS_560_Final_Project.Data
             {
                 var coaches = new Coaches[]
                 {
-    new Coaches{ FirstName = "Kirstie", LastName = "Melodie", Joined =  new DateTime(2017,03,23), IsManager = true, YearsCoaching = 1},
-    new Coaches{ FirstName = "Tamiko", LastName = "Dwight", Joined =  new DateTime(2017,01,29), IsManager = false, YearsCoaching = 2},
-    new Coaches{ FirstName = "Wonda", LastName = "Larae", Joined =  new DateTime(2017,01,29) , IsManager = true, YearsCoaching = 1},
-    new Coaches{ FirstName = "Azalee", LastName = "Jackson", Joined =  new DateTime(2017,05,22), IsManager = true, YearsCoaching = 3},
-    new Coaches{ FirstName = "Doretta", LastName = "Vannessa", Joined =  new DateTime(2016,12,30), IsManager = false, YearsCoaching = 5},
-    new Coaches{ FirstName = "Fidel", LastName = "Shawn", Joined =  new DateTime(2017,05,01), IsManager = true, YearsCoaching = 2},
-    new Coaches{ FirstName = "Sunny", LastName = "Rochelle", Joined =  new DateTime(2017,04,29) , IsManager = true, YearsCoaching = 3},
-    new Coaches{ FirstName = "Rashad", LastName = "Husfad", Joined =  new DateTime(2017,01,09) , IsManager = false, YearsCoaching = 4},
-    new Coaches{ FirstName = "Doretta", LastName = "Poligo", Joined =  new DateTime(2017,02,05) , IsManager = true, YearsCoaching = 1}
+                    new Coaches{ FirstName = "Kirstie", LastName = "Melodie", Joined =  new DateTime(2017,03,23), IsManager = true, YearsCoaching = 1},
+                    new Coaches{ FirstName = "Tamiko", LastName = "Dwight", Joined =  new DateTime(2017,01,29), IsManager = false, YearsCoaching = 2},
+                    new Coaches{ FirstName = "Wonda", LastName = "Larae", Joined =  new DateTime(2017,01,29) , IsManager = true, YearsCoaching = 1},
+                    new Coaches{ FirstName = "Azalee", LastName = "Jackson", Joined =  new DateTime(2017,05,22), IsManager = true, YearsCoaching = 3},
+                    new Coaches{ FirstName = "Doretta", LastName = "Vannessa", Joined =  new DateTime(2016,12,30), IsManager = false, YearsCoaching = 5},
+                    new Coaches{ FirstName = "Fidel", LastName = "Shawn", Joined =  new DateTime(2017,05,01), IsManager = true, YearsCoaching = 2},
+                    new Coaches{ FirstName = "Sunny", LastName = "Rochelle", Joined =  new DateTime(2017,04,29) , IsManager = true, YearsCoaching = 3},
+                    new Coaches{ FirstName = "Rashad", LastName = "Husfad", Joined =  new DateTime(2017,01,09) , IsManager = false, YearsCoaching = 4},
+                    new Coaches{ FirstName = "Doretta", LastName = "Poligo", Joined =  new DateTime(2017,02,05) , IsManager = true, YearsCoaching = 1}
 
-                    };
+                };
             }
 
 

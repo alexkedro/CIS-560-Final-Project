@@ -12,12 +12,12 @@ namespace CIS_560_Final_Project.Models
         public int ID { get; set; }
 
         [ForeignKey("Schools")]
-        [Display (Name = "School ID")]
+        [Display (Name = "School")]
         public int SchoolID { get; set; }
         public Schools School { get; set; } 
 
 
-        [ForeignKey("GameID")]
+        [ForeignKey("Game")]
         [Display(Name = "Game ID")]
         public int GameID { get; set; }
         public Games Game { get; set; } 

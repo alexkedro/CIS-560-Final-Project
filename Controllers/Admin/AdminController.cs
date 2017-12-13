@@ -137,7 +137,7 @@ namespace CIS_560_Final_Project.Controllers
             return RedirectToAction("Tournaments");
         }
 
-        public async Task<IActionResult> TournamentDetails(int? id)
+        public IActionResult TournamentDetails(int? id)
         {
 
             if (id == null)
@@ -146,15 +146,6 @@ namespace CIS_560_Final_Project.Controllers
             }
 
             return RedirectToAction("Matches", new { id = id });
-
-            var matches = _context.Matches.Include(m => m.Team1).Include(m => m.Team2).Include(m => m.Tournament)
-                .Where(m => m.TournamentID == id);
-            if (matches == null)
-            {
-                return NotFound();
-            }
-            ViewBag.data1 = _context.Tournaments.Include(t => t.Game).Single(t => t.ID == id);
-            return View(await matches.ToListAsync());
         }
 
         #endregion
@@ -370,6 +361,16 @@ namespace CIS_560_Final_Project.Controllers
         {
             return _context.Schools.Any(e => e.ID == id);
         }
+
+        public IActionResult SchoolDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Teams", new { id = id });
+        }
         #endregion
 
         #region Match Stuff
@@ -428,6 +429,8 @@ namespace CIS_560_Final_Project.Controllers
                     return RedirectToAction("Matches", new { id = tid });
                 }
             }
+            ViewData["TournamentID"] = new SelectList(_context.Tournaments, "ID", "Name");
+            ViewData["TeamsID"] = new SelectList(_context.Teams, "ID", "Name");
             return View(matches);
         }
 
@@ -537,6 +540,191 @@ namespace CIS_560_Final_Project.Controllers
                 return RedirectToAction("Matches", new { id = tid });
             }
         }
+
+        #endregion
+
+        #region Team Stuff
+
+        public async Task<IActionResult> Teams(int? id)
+        {
+            if (id == null)
+            {
+                var siteContext = _context.Teams.Include(t => t.School).Include(t => t.Game);
+                ViewBag.search = false;
+                return View(await siteContext.ToListAsync());
+            }
+            else
+            {
+                var siteContext = _context.Teams.Include(t => t.School).Include(t => t.Game).Where(m => m.School.ID == id);
+                ViewBag.search = true;
+                ViewBag.tname = _context.Schools.Single(s => s.ID == id).Name;
+                ViewBag.tid = id;
+                return View(await siteContext.ToListAsync());
+            }
+        }
+
+        public IActionResult CreateTeam(int? tid)
+        {
+            if (tid != null)
+            {
+                ViewBag.tid = tid;
+            }
+            else
+            {
+                ViewBag.tid = -1;
+            }
+
+            ViewData["SchoolID"] = new SelectList(_context.Schools, "ID", "Name");
+            ViewData["GameID"] = new SelectList(_context.Games, "ID", "name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTeam(int? tid, [Bind("ID,SchoolID,GameID, Name")] Teams teams)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(teams);
+                await _context.SaveChangesAsync();
+
+                if (tid == -1)
+                {
+                    return RedirectToAction("Teams");
+                }
+                else
+                {
+                    return RedirectToAction("Teams", new { id = tid });
+                }
+            }
+            ViewData["SchoolID"] = new SelectList(_context.Schools, "ID", "Name");
+            ViewData["GameID"] = new SelectList(_context.Games, "ID", "name");
+            return View(teams);
+        }
+
+        public async Task<IActionResult> EditTeam(int? tid, int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            if (tid != null)
+            {
+                ViewBag.tid = tid;
+            }
+            else
+            {
+                ViewBag.tid = -1;
+            }
+            var team = await _context.Teams.SingleOrDefaultAsync(t => t.ID == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+            ViewData["SchoolID"] = new SelectList(_context.Schools, "ID", "Name");
+            ViewData["GameID"] = new SelectList(_context.Games, "ID", "name");
+            return View(team);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTeam(int? tid, int id, [Bind("ID,SchoolID,GameID, Name")] Teams teams)
+        {
+            if (id != teams.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(teams);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TournamentsExists(teams.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                if (tid == -1)
+                {
+                    return RedirectToAction("Teams");
+                }
+                else
+                {
+                    return RedirectToAction("Teams", new { id = tid });
+                }
+            }
+            ViewData["SchoolID"] = new SelectList(_context.Schools, "ID", "Name");
+            ViewData["GameID"] = new SelectList(_context.Games, "ID", "name");
+            return View(teams);
+        }
+
+        public async Task<IActionResult> DeleteTeam(int? id, int? tid)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var team = await _context.Teams.Include(t => t.School).Include(t => t.Game).SingleOrDefaultAsync(t => t.ID == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (tid != null)
+            {
+                ViewBag.tid = tid;
+            }
+            else
+            {
+                ViewBag.tid = -1;
+            }
+
+            return View(team);
+        }
+
+        [HttpPost, ActionName("DeleteTeam")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteTeamConfirmed(int id, int? tid)
+        {
+            var team = await _context.Teams.SingleOrDefaultAsync(t => t.ID == id);
+            _context.Teams.Remove(team);
+            await _context.SaveChangesAsync();
+
+            if (tid == -1)
+            {
+                return RedirectToAction("Teams");
+            }
+            else
+            {
+                return RedirectToAction("Teams", new { id = tid });
+            }
+        }
+
+        public IActionResult TeamDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Players", new { id = id });
+        }
+
+        #endregion
+
+        #region Player Stuff
+
+
 
         #endregion
     }
