@@ -315,8 +315,6 @@ namespace CIS_560_Final_Project.Controllers
 
         #region Team
 
-
-
         [HttpGet]
         public async Task<IActionResult> Team()
         {

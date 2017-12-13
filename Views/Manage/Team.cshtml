@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CIS_560_Final_Project.Models.ManageViewModels.PlayerViewModel>
+﻿@model IEnumerable<CIS_560_Final_Project.Models.Players>
 
 @{
     ViewData["Title"] = "Teams";
@@ -11,13 +11,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.IGN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cop)
+                @Html.DisplayNameFor(model => model.Year)
             </th>
         </tr>
     </thead>
@@ -26,13 +26,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.IGN)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.cop)
+                    @Html.DisplayFor(modelItem => item.Year)
                 </td>
             </tr>
         }
