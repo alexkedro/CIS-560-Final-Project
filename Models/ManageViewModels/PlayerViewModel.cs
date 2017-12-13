@@ -9,6 +9,8 @@ namespace CIS_560_Final_Project.Models.ManageViewModels
 {
     public class PlayerViewModel
     {
+        public int ID { set; get; }
+
         [StringLength(50)]
         [Required]
         [Display(Name = "First Name")]
