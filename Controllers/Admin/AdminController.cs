@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using CIS_560_Final_Project.Entities;
 using CIS_560_Final_Project.Models.ManageViewModels;
 
+
 namespace CIS_560_Final_Project.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -272,7 +273,7 @@ namespace CIS_560_Final_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateSchool([Bind("ID,Address1,Address2,City,State,Name,Population")] Schools schools)
+        public async Task<IActionResult> CreateSchool([Bind("ID,Address1,Address2,City,State,Name,Population")] Models.Schools schools)
         {
             if (ModelState.IsValid)
             {
@@ -301,7 +302,7 @@ namespace CIS_560_Final_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditSchool(int id, [Bind("ID,Address1,Address2,City,State,Name,Population")] Schools schools)
+        public async Task<IActionResult> EditSchool(int id, [Bind("ID,Address1,Address2,City,State,Name,Population")] Models.Schools schools)
         {
             if (id != schools.ID)
             {
@@ -413,7 +414,7 @@ namespace CIS_560_Final_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateMatch(int? tid, [Bind("ID,MatchNumber,Team1ID, Team2ID, Winner, Datetime, TournamentID")] Matches matches)
+        public async Task<IActionResult> CreateMatch(int? tid, [Bind("ID,MatchNumber,Team1ID, Team2ID, Winner, Datetime, TournamentID")] Models.Matches matches)
         {
 
             if (ModelState.IsValid)
@@ -460,7 +461,7 @@ namespace CIS_560_Final_Project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditMatch(int? tid, int id, [Bind("ID,MatchNumber,Team1ID, Team2ID, Winner, Datetime, TournamentID")] Matches matches)
+        public async Task<IActionResult> EditMatch(int? tid, int id, [Bind("ID,MatchNumber,Team1ID, Team2ID, Winner, Datetime, TournamentID")] Models.Matches matches)
         {
             if (id != matches.ID)
             {
@@ -788,7 +789,7 @@ namespace CIS_560_Final_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Team1ID,Team2ID,Winner,Datetime")] Scrims scrims)
+        public async Task<IActionResult> Create([Bind("ID,Team1ID,Team2ID,Winner,Datetime")] Models.Scrims scrims)
         {
             if (ModelState.IsValid)
             {
@@ -820,7 +821,7 @@ namespace CIS_560_Final_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditScrim(int id, [Bind("ID,Team1ID,Team2ID,Winner,Datetime")] Scrims scrims)
+        public async Task<IActionResult> EditScrim(int id, [Bind("ID,Team1ID,Team2ID,Winner,Datetime")] Models.Scrims scrims)
         {
             if (id != scrims.ID)
             {

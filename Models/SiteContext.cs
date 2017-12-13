@@ -19,10 +19,8 @@ namespace CIS_560_Final_Project.Models
         public DbSet<Coaches> Coaches { get; set; }
         public DbSet<Teams> Teams { get; set; }
         public DbSet<Games> Games { get; set; }
-
         public DbSet<Tournaments> Tournaments { get; set; }
         public DbSet<TeamsMembers> TeamsMembers { get; set; }
-        
         public DbSet<Matches> Matches { get; set; }
         public DbSet<Scrims> Scrims { get; set; }
         

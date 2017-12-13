@@ -38,5 +38,23 @@ namespace CIS_560_Final_Project.Controllers
         {
             return View();
         }
+
+        public IActionResult Tournaments()
+        {
+            return RedirectToAction("Index", "Tournaments");
+        }
+        public IActionResult Schools()
+        {
+            return RedirectToAction("Index", "Schools");
+        }
+        public IActionResult Teams()
+        {
+            return RedirectToAction("Index", "Teams");
+        }
+        public IActionResult Scrims()
+        {
+            return RedirectToAction("Index", "Scrims");
+        }
+
     }
 }

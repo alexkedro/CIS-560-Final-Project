@@ -52,7 +52,7 @@ namespace CIS_560_Final_Project.Controllers
         {
             
             var user = await _userManager.GetUserAsync(User);
-            IList<string> roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             foreach (string s in roles)
             {
                 if (s.Equals("Admin"))
@@ -270,6 +270,8 @@ namespace CIS_560_Final_Project.Controllers
             return View(model);
         }
 
+
+
         public async Task<IActionResult> DeleteAccount(int? id)
         {
             if (id == null)
@@ -309,6 +311,59 @@ namespace CIS_560_Final_Project.Controllers
         {
             return RedirectToAction("Player");
         }
+        #endregion
+
+        #region Team
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Team()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
+            var player = await _context.Players.SingleOrDefaultAsync(i => i.User == user);
+
+            if (coach == null && player == null)
+            {
+                StatusMessage = "Need to become fill out user information first";
+                return RedirectToAction(nameof(Player));
+            }
+
+            //if player
+            if(coach == null)
+            {
+                var team = await _context.TeamsMembers.SingleOrDefaultAsync(i => i.Member == player);
+                if(team == null)
+                {
+                    StatusMessage = "Not part of a team yet. Wait until a coach adds you";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                   return RedirectToAction("Index", "TeamController", new { id = team.ID }); 
+                }
+            }
+
+            //if couch
+            if(player == null)
+            {
+                //var playersInTeam = await _context.TeamsMembers.ToListAsync(); 
+                var playersNotInTeam = await _context.Players.Where(p => p.TeamsMembers.Count() == 0).ToListAsync();
+                return View(playersNotInTeam);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Something went wrong.");
+                return Redirect(nameof(Index));
+            }
+        }
+
         #endregion
 
         #region Helpers
