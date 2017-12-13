@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CIS_560_Final_Project.Models.Matches>
+
+@{
+    if (ViewBag.search == true)
+    {
+        ViewData["Title"] = "Matches - " + ViewBag.sname;
+
+    }
+    else
+    {
+        ViewData["Title"] = "Matches";
+
+    }
+
+}
+
+@if (ViewBag.search == true){<h2>@ViewBag.tname - Matches</h2>}
+@if (ViewBag.search != true){<h2>Matches</h2>}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MatchNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Winner)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datetime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team2)
+                </th>
+                @if (ViewBag.search != true)
+            {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tournament)
+                    </th>
+            }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MatchNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Winner)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datetime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Team1.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Team2.Name)
+                    </td>
+                    @if (ViewBag.search != true)
+            {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tournament.Name)
+                        </td>
+            }
+                </tr>
+}
+        </tbody>
+    </table>
+
+    <div>
+        @if(ViewBag.search == true){<a asp-action="Index" asp-route-id="">View All Matches</a><br />}
+        <a asp-action="BackToTournaments">Back To Tournaments</a>
+    </div>
