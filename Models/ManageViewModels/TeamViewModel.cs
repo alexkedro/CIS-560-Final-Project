@@ -13,7 +13,7 @@ namespace CIS_560_Final_Project.Models.ManageViewModels
         public List<Schools> Schools { get; set; } 
 
         [Required]
-        [Display(Name = "Schools")]
+        [Display(Name = "Games")]
         public List<Games> Games { get; set; } 
 
         [Required]

@@ -412,7 +412,8 @@ namespace CIS_560_Final_Project.Controllers
                 Schools = schools,
                 Games = games,
             };
-
+            ViewData["SchoolsID"] = new SelectList(model.Schools, "ID", "Name");
+            ViewData["GamesID"] = new SelectList(model.Games, "ID", "name");
             return View(model);
         }
 
