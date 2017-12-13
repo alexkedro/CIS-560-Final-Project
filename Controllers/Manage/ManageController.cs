@@ -379,7 +379,7 @@ namespace CIS_560_Final_Project.Controllers
 
             if(coachTeam == null)
             {
-                StatusMessage = "Your profile has been updated";
+                StatusMessage = "You must have a team registered before you can add a player to it.";
                 return RedirectToAction(nameof(TeamRegister));
             }
 
@@ -396,25 +396,22 @@ namespace CIS_560_Final_Project.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> TeamRegister()
+        public async Task<IActionResult> TeamRegister(bool? er)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
-            var schools = await _context.Schools.ToListAsync();
-            var games = await _context.Games.ToListAsync();
-
-            var model = new TeamViewModel
+            if (er != null)
             {
-                Schools = schools,
-                Games = games,
-            };
-            ViewData["SchoolsID"] = new SelectList(model.Schools, "ID", "Name");
-            ViewData["GamesID"] = new SelectList(model.Games, "ID", "name");
-            return View(model);
+                StatusMessage = "";
+            }
+            TeamViewModel x = new TeamViewModel { StatusMessage = StatusMessage };
+            
+            ViewData["SchoolsID"] = new SelectList(_context.Schools, "ID", "Name");
+            ViewData["GamesID"] = new SelectList(_context.Games, "ID", "name");
+            return View(x);
         }
 
         [HttpPost]
@@ -430,8 +427,8 @@ namespace CIS_560_Final_Project.Controllers
             var coach = await _context.Coaches.SingleOrDefaultAsync(i => i.User == user);
             var newteam = new Teams
             {
-                School = model.Schools.FirstOrDefault(),
-                Game = model.Games.FirstOrDefault(),
+                School = model.School,
+                Game = model.Game,
                 Name = model.Name
             };
             
