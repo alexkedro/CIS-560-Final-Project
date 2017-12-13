@@ -1899,7 +1899,7 @@ namespace CIS_560_Final_Project.Data
     new TeamsMembers{ TeamsID = 17, MemberID = 3088 }
     };
 
-                
+
                 foreach (TeamsMembers m in teamsMembers)
                 {
                     context.TeamsMembers.Add(m);
@@ -1909,6 +1909,8 @@ namespace CIS_560_Final_Project.Data
 
             //Create admin user and role
             await CreateAdmin(context, userManager, roleManager);
+            await CreateSampleCoach(context, userManager, roleManager);
+
         }
 
         public static async Task CreateAdmin(SiteContext context, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
@@ -1939,10 +1941,37 @@ namespace CIS_560_Final_Project.Data
                     var addresult = await userManager.AddToRoleAsync(adminuser, "Admin");
                 }
             }
+        }
+        public static async Task CreateSampleCoach(SiteContext context, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            // Add roles
+            string[] roles = new string[] { "Admin", "User" };
+            foreach (string role in roles)
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            // Add demo coach
+            if (!context.Users.Any(u => u.UserName == "coachjames@gmail.com"))
+            {
+                var user = new Users
+                {
+                    Email = "coachjames@gmail.com",
+                    NormalizedEmail = "COACHJAMES@GMAIL.COM",
+                    UserName = "coachjames@gmail.com",
+                    NormalizedUserName = "COACHJAMES@GMAIL.COM",
+                    EmailConfirmed = true,
+                };
+                var result = await userManager.CreateAsync(user, "Password123");
+
+                var coachTest = await userManager.FindByEmailAsync("admin@admin.com");
+                if (result.Succeeded)
+                {
+                    var addresult = await userManager.AddToRoleAsync(coachTest, "User");
+                }
+            }
 
 
         }
-
     }
-
 }
