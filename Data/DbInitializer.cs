@@ -225,7 +225,7 @@ namespace CIS_560_Final_Project.Data
                 }
                 context.SaveChanges();
             }
-            /*
+            
             if (!context.Matches.Any())
             {
                 var matches = new Matches[]
@@ -236,129 +236,129 @@ namespace CIS_560_Final_Project.Data
                         Team1ID = 1,
                         Team2ID = 2,
                         Winner = 1,
-                        Datetime = new DateTime(2017, 12, 10),
+                        Datetime = new DateTime(2017, 12, 2),
                         TournamentID = 1
                     },
                     
                     new Matches
                     {
                         MatchNumber = 2,
-                        Team1=context.Teams.Single(t => t.ID == 1),
-                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Team1ID=1,
+                        Team2ID=2,
                         Winner = 1,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                        Datetime = new DateTime(2017, 12, 3),
+                        TournamentID = 1
                     },
 
                     new Matches
                     {
                         MatchNumber = 3,
-                        Team1=context.Teams.Single(t => t.ID == 1),
-                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Team1ID=1,
+                        Team2ID=2,
                         Winner = 2,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                        Datetime = new DateTime(2017, 12, 4),
+                        TournamentID=1
                     },
 
                     new Matches
                     {
                         MatchNumber = 4,
-                        Team1=context.Teams.Single(t => t.ID == 1),
-                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Team1ID=1,
+                        Team2ID=2,
                         Winner = 1,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 1)
+                        Datetime = new DateTime(2017, 12, 5),
+                        TournamentID=1
                     },
                     
                     new Matches
                     {
                         MatchNumber = 1,
-                        Team1=context.Teams.Single(t => t.ID == 5),
-                        Team2=context.Teams.Single(t => t.ID == 7),
+                        Team1ID=5,
+                        Team2ID=7,
                         Winner = 1,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 2)
+                        Datetime = new DateTime(2017, 12, 6),
+                        TournamentID=2
                     },
 
                     new Matches
                     {
                         MatchNumber = 2,
-                        Team1=context.Teams.Single(t => t.ID == 6),
-                        Team2=context.Teams.Single(t => t.ID == 7),
+                        Team1ID=6,
+                        Team2ID=7,
                         Winner = 1,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 2)
+                        Datetime = new DateTime(2017, 12, 7),
+                        TournamentID=2
                     },
 
                     new Matches
                     {
                         MatchNumber = 3,
-                        Team1=context.Teams.Single(t => t.ID == 6),
-                        Team2=context.Teams.Single(t => t.ID == 5),
+                        Team1ID=6,
+                        Team2ID=5,
                         Winner = 2,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 2)
+                        Datetime = new DateTime(2017, 12, 8),
+                        TournamentID=2
                     },
                     new Matches
                     {
                         MatchNumber = 1,
-                        Team1=context.Teams.Single(t => t.ID == 11),
-                        Team2=context.Teams.Single(t => t.ID == 22),
+                        Team1ID=11,
+                        Team2ID=22,
                         Winner = 1,
-                        Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 3)
+                        Datetime = new DateTime(2017, 12, 9),
+                        TournamentID=3
                     },
 
                     new Matches
                     {
                         MatchNumber = 2,
-                        Team1=context.Teams.Single(t => t.ID == 12),
-                        Team2=context.Teams.Single(t => t.ID == 21),
+                        Team1ID=12,
+                        Team2ID=21,
                         Winner = 1,
                         Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 3)
+                        TournamentID=3
                     },
 
                     new Matches
                     {
                         MatchNumber = 3,
-                        Team1=context.Teams.Single(t => t.ID == 12),
-                        Team2=context.Teams.Single(t => t.ID == 22),
+                        Team1ID=12,
+                        Team2ID=22,
                         Winner = 2,
                         Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 3)
+                        TournamentID=3
                     },
                     new Matches
                     {
                         MatchNumber = 1,
-                        Team1=context.Teams.Single(t => t.ID == 51),
-                        Team2=context.Teams.Single(t => t.ID == 52),
+                        Team1ID=11,
+                        Team2ID=12,
                         Winner = 1,
                         Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 4)
+                        TournamentID=4
                     },
 
                     new Matches
                     {
                         MatchNumber = 2,
-                        Team1=context.Teams.Single(t => t.ID == 51),
-                        Team2=context.Teams.Single(t => t.ID == 53),
+                        Team1ID=11,
+                        Team2ID=12,
                         Winner = 1,
                         Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 4)
+                        TournamentID=4
                     },
 
                     new Matches
                     {
-                        MatchNumber = 1,
-                        Team1=context.Teams.Single(t => t.ID == 53),
-                        Team2=context.Teams.Single(t => t.ID == 52),
+                        MatchNumber = 3,
+                        Team1ID=5,
+                        Team2ID=7,
                         Winner = 2,
                         Datetime = new DateTime(2017, 12, 10),
-                        Tournament = context.Tournaments.Single(t => t.ID == 5)
+                        TournamentID=4
                     }
 
-        };
+                };
 
                 foreach (Matches m in matches)
                 {
@@ -366,46 +366,48 @@ namespace CIS_560_Final_Project.Data
                 }
                 context.SaveChanges();
             }
-            */
-
-            /*
+                     
             if (!context.Scrims.Any())
             {
                 var scrims = new Scrims[]
                 {
                     new Scrims
                     {
-                        Team1=context.Teams.Single(t => t.ID == 1),
-                        Team2=context.Teams.Single(t => t.ID == 2),
+                        Team1ID=1,
+                        Team2ID=2,
                         Winner = 1,
                         Datetime = new DateTime(2017, 11, 10)
                     },
                     new Scrims
                     {
-                        Team1=context.Teams.Single(t => t.ID == 1),
-                        Team2=context.Teams.Single(t => t.ID == 5),
+                        Team1ID=1,
+                        Team2ID=5,
                         Winner = 2,
                         Datetime = new DateTime(2017, 11, 5)
                     },
                     new Scrims
                     {
-                        Team1=context.Teams.Single(t => t.ID == 20),
-                        Team2=context.Teams.Single(t => t.ID == 5),
+                        Team1ID=20,
+                        Team2ID=5,
                         Winner = 2,
                         Datetime = new DateTime(2017, 12, 02)
                     },
 
                     new Scrims
                     {
-                        Team1=context.Teams.Single(t => t.ID == 30),
-                        Team2=context.Teams.Single(t => t.ID == 15),
+                        Team1ID=30,
+                        Team2ID=15,
                         Winner = 1,
                         Datetime = new DateTime(2017, 12, 06)
                     }
                 };
+                foreach (Scrims m in scrims)
+                {
+                    context.Scrims.Add(m);
+                }
+                context.SaveChanges();
             }
-            */
-
+            
             if (!context.Players.Any())
             {
                 var players = new Players[]
@@ -430,6 +432,11 @@ namespace CIS_560_Final_Project.Data
                     new Players{ FirstName = "Tamara", LastName = "Danielle", Joined =  new DateTime(2017,05,19), Year =YearClassification.Senior, IGN = "sem. Nulla" },
                     new Players{ FirstName = "Elizabeth", LastName = "Kylynn", Joined =  new DateTime(2017,07,21), Year =YearClassification.Senior, IGN = "Integer mollis."}
                 };
+                foreach (Players m in players)
+                {
+                    context.Players.Add(m);
+                }
+                context.SaveChanges();
             }
 
             if (!context.Coaches.Any())
@@ -447,9 +454,44 @@ namespace CIS_560_Final_Project.Data
                 new Coaches{ FirstName = "Doretta", LastName = "Poligo", Joined =  new DateTime(2017,02,05) , IsManager = true, YearsCoaching = 1}
 
                 };
+                foreach (Coaches m in coaches)
+                {
+                    context.Coaches.Add(m);
+                }
+                context.SaveChanges();
             }
 
-
+            if (!context.TeamsMembers.Any())
+            {
+                var teamsMembers = new TeamsMembers[]
+                {
+                new TeamsMembers{ TeamsID = 2, MemberID = 1},
+                new TeamsMembers{ TeamsID = 15, MemberID = 2},
+                new TeamsMembers{ TeamsID = 13, MemberID = 3},
+                new TeamsMembers{ TeamsID = 14, MemberID = 4},
+                new TeamsMembers{ TeamsID = 3, MemberID = 5},
+                new TeamsMembers{ TeamsID = 1, MemberID = 6},
+                new TeamsMembers{ TeamsID = 5, MemberID = 7},
+                new TeamsMembers{ TeamsID = 7, MemberID = 8},
+                new TeamsMembers{ TeamsID = 4, MemberID = 9},
+                new TeamsMembers{ TeamsID = 6, MemberID = 10},
+                new TeamsMembers{ TeamsID = 2, MemberID = 11},
+                new TeamsMembers{ TeamsID = 3, MemberID = 12},
+                new TeamsMembers{ TeamsID = 1, MemberID = 13},
+                new TeamsMembers{ TeamsID = 4, MemberID = 14},
+                new TeamsMembers{ TeamsID = 5, MemberID = 15},
+                new TeamsMembers{ TeamsID = 7, MemberID = 16},
+                new TeamsMembers{ TeamsID = 1, MemberID = 17},
+                new TeamsMembers{ TeamsID = 4, MemberID = 18},
+                new TeamsMembers{ TeamsID = 5, MemberID = 19},
+                new TeamsMembers{ TeamsID = 7, MemberID = 20},
+                };
+                foreach (TeamsMembers m in teamsMembers)
+                {
+                    context.TeamsMembers.Add(m);
+                }
+                context.SaveChanges();
+            }
 
             //Create admin user and role
             await CreateAdmin(context, userManager, roleManager);
