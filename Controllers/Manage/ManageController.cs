@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using CIS_560_Final_Project.Models;
 using CIS_560_Final_Project.Models.ManageViewModels;
 using CIS_560_Final_Project.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CIS_560_Final_Project.Controllers
 {
@@ -107,7 +108,7 @@ namespace CIS_560_Final_Project.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Player(string returnUrl = null)
+        public async Task<IActionResult> Player()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -131,6 +132,8 @@ namespace CIS_560_Final_Project.Controllers
                 };
                 return View(model);
             }
+
+            ViewBag.pYears = new SelectList(Enum.GetValues(typeof(CIS_560_Final_Project.Entities.YearClassification)));
 
             if (coach != null)
             {
@@ -218,7 +221,7 @@ namespace CIS_560_Final_Project.Controllers
         //Only can happen if user is coach or player
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Player(PlayerViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Player(PlayerViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -266,6 +269,45 @@ namespace CIS_560_Final_Project.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> DeleteAccount(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var mem = await _context.Members.SingleOrDefaultAsync(m => m.ID == id);
+
+            if(mem == null)
+            {
+                return NotFound();
+            }
+
+            return View(mem);
+        }
+
+        [HttpPost, ActionName("DeleteAccount")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAccount(int id)
+        {            
+            var mem = await _context.Members.SingleOrDefaultAsync(m => m.ID == id);
+            var user = await _userManager.GetUserAsync(User);
+
+            
+            _context.Remove(mem);
+            await _signInManager.SignOutAsync();
+            await _userManager.DeleteAsync(user);
+
+            _logger.LogInformation("User Deleted.");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpPost, ActionName("DeleteCancel")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteCancel()
+        {
+            return RedirectToAction("Player");
+        }
 
         #region Helpers
 

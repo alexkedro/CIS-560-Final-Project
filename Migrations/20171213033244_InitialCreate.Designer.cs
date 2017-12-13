@@ -13,8 +13,8 @@ using System;
 namespace CIS560FinalProject.Migrations
 {
     [DbContext(typeof(SiteContext))]
-    [Migration("20171212110909_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20171213033244_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,24 +22,6 @@ namespace CIS560FinalProject.Migrations
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.Aliases", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("IGN")
-                        .IsRequired()
-                        .HasMaxLength(40);
-
-                    b.Property<int>("MembersID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MembersID");
-
-                    b.ToTable("Aliases");
-                });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Games", b =>
                 {
@@ -201,35 +183,17 @@ namespace CIS560FinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("PlayersID");
+                    b.Property<int>("MemberID");
 
                     b.Property<int>("TeamsID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PlayersID");
+                    b.HasIndex("MemberID");
 
                     b.HasIndex("TeamsID");
 
                     b.ToTable("TeamsMembers");
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsTournaments", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("TeamID");
-
-                    b.Property<int>("TournamentID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TeamID");
-
-                    b.HasIndex("TournamentID");
-
-                    b.ToTable("TeamsTournaments");
                 });
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.Tournaments", b =>
@@ -445,61 +409,6 @@ namespace CIS560FinalProject.Migrations
                     b.HasDiscriminator().HasValue("Players");
                 });
 
-            modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsCoached", b =>
-                {
-                    b.HasBaseType("CIS_560_Final_Project.Models.Members");
-
-                    b.Property<int>("CoachID");
-
-                    b.Property<DateTime>("EndDate");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.Property<int>("TeamID");
-
-                    b.Property<bool>("WasManager");
-
-                    b.HasIndex("CoachID");
-
-                    b.HasIndex("TeamID");
-
-                    b.ToTable("TeamsCoached");
-
-                    b.HasDiscriminator().HasValue("TeamsCoached");
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsPlayed", b =>
-                {
-                    b.HasBaseType("CIS_560_Final_Project.Models.Members");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnName("TeamsPlayed_EndDate");
-
-                    b.Property<int>("PlayerID");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnName("TeamsPlayed_StartDate");
-
-                    b.Property<int>("TeamID")
-                        .HasColumnName("TeamsPlayed_TeamID");
-
-                    b.HasIndex("PlayerID");
-
-                    b.HasIndex("TeamID");
-
-                    b.ToTable("TeamsPlayed");
-
-                    b.HasDiscriminator().HasValue("TeamsPlayed");
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.Aliases", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Members", "Member")
-                        .WithMany()
-                        .HasForeignKey("MembersID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CIS_560_Final_Project.Models.Matches", b =>
                 {
                     b.HasOne("CIS_560_Final_Project.Models.Teams", "Team1")
@@ -553,27 +462,14 @@ namespace CIS560FinalProject.Migrations
 
             modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsMembers", b =>
                 {
-                    b.HasOne("CIS_560_Final_Project.Models.Players", "Player")
+                    b.HasOne("CIS_560_Final_Project.Models.Members", "Member")
                         .WithMany("TeamsMembers")
-                        .HasForeignKey("PlayersID")
+                        .HasForeignKey("MemberID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIS_560_Final_Project.Models.Teams", "Team")
                         .WithMany()
                         .HasForeignKey("TeamsID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsTournaments", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIS_560_Final_Project.Models.Tournaments", "Tournament")
-                        .WithMany()
-                        .HasForeignKey("TournamentID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -627,32 +523,6 @@ namespace CIS560FinalProject.Migrations
                     b.HasOne("CIS_560_Final_Project.Models.Users")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsCoached", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Coaches", "Coach")
-                        .WithMany("TeamsCoached")
-                        .HasForeignKey("CoachID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CIS_560_Final_Project.Models.TeamsPlayed", b =>
-                {
-                    b.HasOne("CIS_560_Final_Project.Models.Players", "Players")
-                        .WithMany()
-                        .HasForeignKey("PlayerID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIS_560_Final_Project.Models.Teams", "Teams")
-                        .WithMany()
-                        .HasForeignKey("TeamID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

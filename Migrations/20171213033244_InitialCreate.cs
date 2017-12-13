@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIS560FinalProject.Migrations
 {
-    public partial class IntialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -188,6 +188,34 @@ namespace CIS560FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    IsManager = table.Column<bool>(type: "bit", nullable: true),
+                    YearsCoaching = table.Column<int>(type: "int", nullable: true),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Discriminator = table.Column<string>(type: "longtext", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Joined = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    UserID = table.Column<string>(type: "varchar(127)", nullable: true),
+                    IGN = table.Column<string>(type: "longtext", nullable: true),
+                    Year = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Members_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tournaments",
                 columns: table => new
                 {
@@ -273,67 +301,6 @@ namespace CIS560FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Members",
-                columns: table => new
-                {
-                    IsManager = table.Column<bool>(type: "bit", nullable: true),
-                    YearsCoaching = table.Column<int>(type: "int", nullable: true),
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false),
-                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Joined = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    UserID = table.Column<string>(type: "varchar(127)", nullable: true),
-                    IGN = table.Column<string>(type: "longtext", nullable: true),
-                    Year = table.Column<int>(type: "int", nullable: true),
-                    CoachID = table.Column<int>(type: "int", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    TeamID = table.Column<int>(type: "int", nullable: true),
-                    WasManager = table.Column<bool>(type: "bit", nullable: true),
-                    TeamsPlayed_EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    PlayerID = table.Column<int>(type: "int", nullable: true),
-                    TeamsPlayed_StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    TeamsPlayed_TeamID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Members", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Members_AspNetUsers_UserID",
-                        column: x => x.UserID,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Members_Members_CoachID",
-                        column: x => x.CoachID,
-                        principalTable: "Members",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Members_Teams_TeamID",
-                        column: x => x.TeamID,
-                        principalTable: "Teams",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Members_Members_PlayerID",
-                        column: x => x.PlayerID,
-                        principalTable: "Members",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Members_Teams_TeamsPlayed_TeamID",
-                        column: x => x.TeamsPlayed_TeamID,
-                        principalTable: "Teams",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Scrims",
                 columns: table => new
                 {
@@ -364,66 +331,20 @@ namespace CIS560FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeamsTournaments",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TeamID = table.Column<int>(type: "int", nullable: false),
-                    TournamentID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamsTournaments", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_TeamsTournaments_Teams_TeamID",
-                        column: x => x.TeamID,
-                        principalTable: "Teams",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TeamsTournaments_Tournaments_TournamentID",
-                        column: x => x.TournamentID,
-                        principalTable: "Tournaments",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Aliases",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IGN = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
-                    MembersID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Aliases", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Aliases_Members_MembersID",
-                        column: x => x.MembersID,
-                        principalTable: "Members",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TeamsMembers",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PlayersID = table.Column<int>(type: "int", nullable: false),
+                    MemberID = table.Column<int>(type: "int", nullable: false),
                     TeamsID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeamsMembers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TeamsMembers_Members_PlayersID",
-                        column: x => x.PlayersID,
+                        name: "FK_TeamsMembers_Members_MemberID",
+                        column: x => x.MemberID,
                         principalTable: "Members",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -434,11 +355,6 @@ namespace CIS560FinalProject.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Aliases_MembersID",
-                table: "Aliases",
-                column: "MembersID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -498,26 +414,6 @@ namespace CIS560FinalProject.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Members_CoachID",
-                table: "Members",
-                column: "CoachID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Members_TeamID",
-                table: "Members",
-                column: "TeamID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Members_PlayerID",
-                table: "Members",
-                column: "PlayerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Members_TeamsPlayed_TeamID",
-                table: "Members",
-                column: "TeamsPlayed_TeamID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Scrims_Team1ID",
                 table: "Scrims",
                 column: "Team1ID");
@@ -538,24 +434,14 @@ namespace CIS560FinalProject.Migrations
                 column: "SchoolID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamsMembers_PlayersID",
+                name: "IX_TeamsMembers_MemberID",
                 table: "TeamsMembers",
-                column: "PlayersID");
+                column: "MemberID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamsMembers_TeamsID",
                 table: "TeamsMembers",
                 column: "TeamsID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TeamsTournaments_TeamID",
-                table: "TeamsTournaments",
-                column: "TeamID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TeamsTournaments_TournamentID",
-                table: "TeamsTournaments",
-                column: "TournamentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tournaments_GamesID",
@@ -565,9 +451,6 @@ namespace CIS560FinalProject.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Aliases");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -593,22 +476,19 @@ namespace CIS560FinalProject.Migrations
                 name: "TeamsMembers");
 
             migrationBuilder.DropTable(
-                name: "TeamsTournaments");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Members");
 
             migrationBuilder.DropTable(
                 name: "Tournaments");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Members");
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Games");

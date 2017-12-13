@@ -12,10 +12,7 @@ namespace CIS_560_Final_Project.Models
     {
         [Required]
         public YearClassification Year { set; get; }
-
-        //refrences TeamsPlaying
-        public ICollection<TeamsMembers> TeamsMembers { set; get; }
-
+        
         [Required]
         [Display (Name = "In-Game Name")]
         public string IGN { set; get; }

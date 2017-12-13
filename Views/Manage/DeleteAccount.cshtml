@@ -1,0 +1,14 @@
+﻿@model CIS_560_Final_Project.Models.Members
+@{
+    ViewData["Title"] = "Delete Account";
+    ViewData.AddActivePage(ManageNavPages.Player);
+}
+
+<h4>Are you sure you want to delete your account?</h4>
+<form asp-action="DeleteAccount" style="float:left;">
+    <input type="hidden" asp-for="ID" />
+    <input type="submit" value="Delete" class="btn btn-default" />
+</form>
+<form asp-action="DeleteCancel" style="float:left;">
+    <input type="submit" value="Cancel" class="btn btn-default" />
+</form>

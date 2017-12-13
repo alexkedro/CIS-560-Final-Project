@@ -15,9 +15,6 @@ namespace CIS_560_Final_Project.Models
 
         [Required]
         public int YearsCoaching { set; get; }
-
-        // Refrence for TeamsCoached
-        public ICollection<TeamsCoached> TeamsCoached { set; get; }
     }
 
 }

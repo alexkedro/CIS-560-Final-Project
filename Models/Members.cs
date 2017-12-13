@@ -15,9 +15,11 @@ namespace CIS_560_Final_Project.Models
 
         [ForeignKey("UserID")]
         public string UserID { get; set; }
-        public Users User { get; set; } 
+        public Users User { get; set; }
 
-        
+        public ICollection<TeamsMembers> TeamsMembers { set; get; }
+
+
         [Required]
         [StringLength(50)]
         public string FirstName { set; get; }

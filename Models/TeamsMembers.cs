@@ -15,9 +15,10 @@ namespace CIS_560_Final_Project.Models
         public int TeamsID { get; set; }
         public Teams Team { get; set; } 
 
-        [ForeignKey("Players")]
-        public int PlayersID { get; set; }
-        public Players Player { get; set; } 
+        [ForeignKey("Members")]
+        public int MemberID { get; set; }
+
+        public Members Member { get; set; } 
 
     }
 }
