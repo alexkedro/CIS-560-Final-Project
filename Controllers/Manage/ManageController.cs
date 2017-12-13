@@ -239,36 +239,24 @@ namespace CIS_560_Final_Project.Controllers
 
             if (playerUpdate != null)
             {
-                var player = new Players
-                {
-                    ID = playerUpdate.ID,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    DateOfBirth = model.DateOfBirth,
-                    IGN = model.IGN,
-                    Year = model.Year
-                };
-
-                _context.Update(player);
+                playerUpdate.FirstName = model.FirstName;
+                playerUpdate.LastName = model.LastName;
+                playerUpdate.DateOfBirth = model.DateOfBirth;
+                playerUpdate.IGN = model.IGN;
+                playerUpdate.Year = model.Year;
                 _context.SaveChanges();
-
 
                 StatusMessage = "Your profile has been updated";
                 return RedirectToAction(nameof(Index));
             }
+
             else if (coachUpdate != null)
             {
-                var coach = new Coaches
-                {
-                    ID = coachUpdate.ID,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    DateOfBirth = model.DateOfBirth,
-                    YearsCoaching = model.YearsCoaching,
-                    IsManager = model.IsManager
-                };
-
-                _context.Update(coach);
+                coachUpdate.FirstName = model.FirstName;
+                coachUpdate.LastName = model.LastName;
+                coachUpdate.DateOfBirth = model.DateOfBirth;
+                coachUpdate.IsManager = model.IsManager;
+                coachUpdate.YearsCoaching = model.YearsCoaching;
                 _context.SaveChanges();
 
                 StatusMessage = "Your profile has been updated";
