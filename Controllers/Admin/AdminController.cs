@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CIS_560_Final_Project.Models;
 using Microsoft.AspNetCore.Authorization;
 using CIS_560_Final_Project.Entities;
+using CIS_560_Final_Project.Models.ManageViewModels;
 
 namespace CIS_560_Final_Project.Controllers
 {
@@ -717,14 +718,14 @@ namespace CIS_560_Final_Project.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction("Players", new { id = id });
+            return RedirectToAction("Members", new { id = id });
         }
 
         #endregion
 
-        #region Player Stuff
+        #region Member Stuff
 
-        public async Task<IActionResult> Players(int? id)
+        public async Task<IActionResult> Members(int? id)
         {
 
             if (id == null)
@@ -733,8 +734,7 @@ namespace CIS_560_Final_Project.Controllers
             }
             else
             {
-                List<Models.Players> players = new List<Models.Players>();
-                List<Models.Coaches> coaches = new List<Models.Coaches>();
+                List<PlayerViewModel> teammems = new List<PlayerViewModel>();
                 var siteContext = _context.TeamsMembers.Include(tm => tm.Member).Include(tm => tm.Team).Where(tm => tm.Team.ID == id);
                 IEnumerable<TeamsMembers> members = await siteContext.ToListAsync();
                 foreach(TeamsMembers tm in members)
@@ -744,24 +744,147 @@ namespace CIS_560_Final_Project.Controllers
 
                     if(coach != null)
                     {
-                        coaches.Add(coach);
+                        teammems.Add(new PlayerViewModel
+                        {
+                            ID = coach.ID,
+                            FirstName = coach.FirstName,
+                            LastName = coach.LastName,
+                            cop = CoachOrPlayer.Coach
+                        });
                     }
                     else if(player != null)
                     {
-                        players.Add(player);
+                        teammems.Add(new PlayerViewModel
+                        {
+                            ID = player.ID,
+                            FirstName = player.FirstName,
+                            LastName = player.LastName,
+                            cop = CoachOrPlayer.Player
+                        });
                     }
                 }
-
-                ViewBag.players = players;
-                ViewBag.coaches = coaches;
-                
-                ViewBag.search = true;
-                ViewBag.tname = _context.Tournaments.Single(t => t.ID == id).Name;
+                ViewBag.tname = _context.Teams.Single(t => t.ID == id).Name;
                 ViewBag.tid = id;
-                return View(await siteContext.ToListAsync());
+                return View(teammems);
             }
         }
 
+        #endregion
+
+        #region Scrim Stuff
+
+        public async Task<IActionResult> Scrims()
+        {
+            var siteContext = _context.Scrims.Include(s => s.Team1).Include(s => s.Team2);
+            return View(await siteContext.ToListAsync());
+        }
+
+        public IActionResult CreateScrim()
+        {
+            ViewData["Team1ID"] = new SelectList(_context.Teams, "ID", "Name");
+            ViewData["Team2ID"] = new SelectList(_context.Teams, "ID", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,Team1ID,Team2ID,Winner,Datetime")] Scrims scrims)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(scrims);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Scrims");
+            }
+            ViewData["Team1ID"] = new SelectList(_context.Teams, "ID", "Name", scrims.Team1ID);
+            ViewData["Team2ID"] = new SelectList(_context.Teams, "ID", "Name", scrims.Team2ID);
+            return View(scrims);
+        }
+
+        public async Task<IActionResult> EditScrim(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var scrims = await _context.Scrims.SingleOrDefaultAsync(m => m.ID == id);
+            if (scrims == null)
+            {
+                return NotFound();
+            }
+            ViewData["Team1ID"] = new SelectList(_context.Teams, "ID", "Name", scrims.Team1ID);
+            ViewData["Team2ID"] = new SelectList(_context.Teams, "ID", "Name", scrims.Team2ID);
+            return View(scrims);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditScrim(int id, [Bind("ID,Team1ID,Team2ID,Winner,Datetime")] Scrims scrims)
+        {
+            if (id != scrims.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(scrims);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ScrimsExists(scrims.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Scrims");
+            }
+            ViewData["Team1ID"] = new SelectList(_context.Teams, "ID", "Name", scrims.Team1ID);
+            ViewData["Team2ID"] = new SelectList(_context.Teams, "ID", "Name", scrims.Team2ID);
+            return View(scrims);
+        }
+
+        public async Task<IActionResult> DeleteScrim(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var scrims = await _context.Scrims
+                .Include(s => s.Team1)
+                .Include(s => s.Team2)
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (scrims == null)
+            {
+                return NotFound();
+            }
+
+            return View(scrims);
+        }
+
+        [HttpPost, ActionName("DeleteScrim")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteScrimConfirmed(int id)
+        {
+            var scrims = await _context.Scrims.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Scrims.Remove(scrims);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Scrims");
+        }
+
+        private bool ScrimsExists(int id)
+        {
+            return _context.Scrims.Any(e => e.ID == id);
+        }
         #endregion
     }
 }

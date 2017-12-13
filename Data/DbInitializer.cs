@@ -225,7 +225,7 @@ namespace CIS_560_Final_Project.Data
                 }
                 context.SaveChanges();
             }
-            
+            /*
             if (!context.Matches.Any())
             {
                 var matches = new Matches[]
@@ -239,7 +239,7 @@ namespace CIS_560_Final_Project.Data
                         Datetime = new DateTime(2017, 12, 10),
                         TournamentID = 1
                     },
-                    /*
+                    
                     new Matches
                     {
                         MatchNumber = 2,
@@ -356,9 +356,9 @@ namespace CIS_560_Final_Project.Data
                         Winner = 2,
                         Datetime = new DateTime(2017, 12, 10),
                         Tournament = context.Tournaments.Single(t => t.ID == 5)
-                    }*/
+                    }
 
-                };
+        };
 
                 foreach (Matches m in matches)
                 {
@@ -366,7 +366,8 @@ namespace CIS_560_Final_Project.Data
                 }
                 context.SaveChanges();
             }
-            
+            */
+
             /*
             if (!context.Scrims.Any())
             {

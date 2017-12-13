@@ -32,6 +32,7 @@ namespace CIS_560_Final_Project.Models.ManageViewModels
         public DateTime DateOfBirth { set; get; }
         
         [Required]
+        [Display(Name = "Role")]
         public CoachOrPlayer cop { set; get;}
 
         [Display(Name = "In-Game Name")]
