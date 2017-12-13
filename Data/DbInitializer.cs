@@ -461,7 +461,37 @@ namespace CIS_560_Final_Project.Data
                 context.SaveChanges();
             }
 
-
+            if (!context.TeamsMembers.Any())
+            {
+                var teamsMembers = new TeamsMembers[]
+                {
+                new TeamsMembers{ TeamsID = 2, MemberID = 1},
+                new TeamsMembers{ TeamsID = 15, MemberID = 2},
+                new TeamsMembers{ TeamsID = 13, MemberID = 3},
+                new TeamsMembers{ TeamsID = 14, MemberID = 4},
+                new TeamsMembers{ TeamsID = 3, MemberID = 5},
+                new TeamsMembers{ TeamsID = 1, MemberID = 6},
+                new TeamsMembers{ TeamsID = 5, MemberID = 7},
+                new TeamsMembers{ TeamsID = 7, MemberID = 8},
+                new TeamsMembers{ TeamsID = 4, MemberID = 9},
+                new TeamsMembers{ TeamsID = 6, MemberID = 10},
+                new TeamsMembers{ TeamsID = 2, MemberID = 11},
+                new TeamsMembers{ TeamsID = 3, MemberID = 12},
+                new TeamsMembers{ TeamsID = 1, MemberID = 13},
+                new TeamsMembers{ TeamsID = 4, MemberID = 14},
+                new TeamsMembers{ TeamsID = 5, MemberID = 15},
+                new TeamsMembers{ TeamsID = 7, MemberID = 16},
+                new TeamsMembers{ TeamsID = 1, MemberID = 17},
+                new TeamsMembers{ TeamsID = 4, MemberID = 18},
+                new TeamsMembers{ TeamsID = 5, MemberID = 19},
+                new TeamsMembers{ TeamsID = 7, MemberID = 20},
+                };
+                foreach (TeamsMembers m in teamsMembers)
+                {
+                    context.TeamsMembers.Add(m);
+                }
+                context.SaveChanges();
+            }
 
             //Create admin user and role
             await CreateAdmin(context, userManager, roleManager);
