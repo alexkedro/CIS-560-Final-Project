@@ -14,16 +14,23 @@ namespace CIS_560_Final_Project.Models
         public int ID { get; set; }
 
         [Required]
+        [Display(Name = "Match Number")]
         public int MatchNumber { get; set; }
 
         [Required]
         [ForeignKey("Teams")]
+        [Display(Name = "Team 1")]
         public int Team1ID { get; set; }
+
+        [Display(Name = "Team 1")]
         public Teams Team1 { get; set; }
 
         [Required]
         [ForeignKey("Teams")]
+        [Display(Name = "Team 2")]
         public int Team2ID { get; set; }
+
+        [Display(Name = "Team 2")]
         public Teams Team2 { get; set; }
 
         // Int representing the winner team 1 or team 2
@@ -32,6 +39,7 @@ namespace CIS_560_Final_Project.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [Display(Name = "Date")]
         public DateTime Datetime { set; get; }
 
         [Required] 

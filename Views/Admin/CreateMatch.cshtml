@@ -1,0 +1,52 @@
+﻿@model CIS_560_Final_Project.Models.Matches
+
+@{
+    ViewData["Title"] = "Create Match";
+}
+
+<h2>Create a Match</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMatch" asp-route-tid="@ViewBag.tid">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MatchNumber" class="control-label"></label>
+                <input asp-for="MatchNumber" class="form-control" />
+                <span asp-validation-for="MatchNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Team1ID" class="control-label"></label>
+                <select asp-for="Team1ID" class ="form-control" asp-items="ViewBag.TeamsID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Team2ID" class="control-label"></label>
+                <select asp-for="Team2ID" class ="form-control" asp-items="ViewBag.TeamsID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Winner" class="control-label"></label>
+                <input asp-for="Winner" class="form-control" />
+                <span asp-validation-for="Winner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datetime" class="control-label"></label>
+                <input asp-for="Datetime" class="form-control" />
+                <span asp-validation-for="Datetime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentID" class="control-label"></label>
+                <select asp-for="TournamentID" class ="form-control" asp-items="ViewBag.TournamentID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if(ViewBag.tid == -1) {<a asp-action="Matches">Back to List</a> }
+    @if(ViewBag.tid != -1) {<a asp-action="Matches" asp-route-id="@ViewBag.tid">Back to List</a> }
+</div>
+

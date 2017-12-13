@@ -1,0 +1,58 @@
+﻿@model CIS_560_Final_Project.Models.Matches
+
+@{
+    ViewData["Title"] = "Delete Match";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this match?</h3>
+<div>
+    <h4>Matches</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MatchNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MatchNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Winner)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Winner)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datetime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Team1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Team1.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Team2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Team2.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tournament)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tournament.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteMatch" asp-route-tid="@ViewBag.tid">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @if(ViewBag.tid == -1) {<a asp-action="Matches">Back to List</a> }
+        @if(ViewBag.tid != -1) {<a asp-action="Matches" asp-route-id="@ViewBag.tid">Back to List</a> }
+    </form>
+</div>
